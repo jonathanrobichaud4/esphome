@@ -8,8 +8,8 @@ namespace esphome {
 namespace levoit {
 
 static const char *const TAG = "levoit";
-static const int COMMAND_DELAY = 200;  // 50ms seems too low at least on the 400s; lots of NACK errors; 100ms is better
-static const int RECEIVE_TIMEOUT = 500;
+static const int COMMAND_DELAY = 100;  // 50ms seems too low at least on the 400s; lots of NACK errors; 100ms is better
+static const int RECEIVE_TIMEOUT = 1000;
 static const int MAX_RETRIES = 5;
 
 void Levoit::setup() {
