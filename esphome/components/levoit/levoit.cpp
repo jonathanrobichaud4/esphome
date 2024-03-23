@@ -227,7 +227,7 @@ void Levoit::process_command_queue_() {
   }
 
   // Left check of delay since last command in case there's ever a command sent by calling send_raw_command_ directly
-  if (delay > COMMAND_DELAY && !this->command_queue_.empty() && this->rx_message_.empty()) {
+  /*if (delay > COMMAND_DELAY && !this->command_queue_.empty() && this->rx_message_.empty()) {
     if (lastCommandRetries < MAX_RETRIES) {
       if (lastCommandRetries > 0) {
         ESP_LOGW(TAG, "ACK response timeout, retry #%d", lastCommandRetries);
@@ -240,7 +240,7 @@ void Levoit::process_command_queue_() {
       lastCommandAcked = false;
       lastCommandRetries = 0;
     }
-  }
+  }*/
 }
 
 void Levoit::send_command(const LevoitCommand &command) {
