@@ -33,8 +33,8 @@ enum class LevoitPayloadType : uint32_t {
   TIMER_START_OR_CLEAR = 0x0166A2,
 
  //not working/not applicable:
-  STATUS_REQUEST = 0x013140, //not possible on classic 300
-  STATUS_RESPONSE = 0x013040,
+  //STATUS_REQUEST = 0x013140, //not possible on classic 300
+  //STATUS_RESPONSE = 0x013040,
   SET_FAN_AUTO_MODE = 0x01E6A5,
   SET_FAN_MANUAL = 0x0160A2,
   SET_FAN_MODE = 0x01E0A5,
