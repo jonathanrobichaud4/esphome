@@ -13,7 +13,7 @@ namespace levoit {
 
 enum class LevoitDeviceModel : uint8_t { NONE, CORE_300S, CORE_400S };
 
-enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12, ERROR = 0x52 };
+enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12 || 0x02, ERROR = 0x52 };
 
 enum class LevoitPayloadType : uint32_t {
   STATUS_REQUEST = 0x013140,
