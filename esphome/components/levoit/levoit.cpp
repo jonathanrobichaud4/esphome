@@ -27,7 +27,7 @@ void Levoit::setup() {
   // we must be approaching mcu capacity
   // TODO: ideally there is some way in the protocol to determine wifi light status,
   // which would allow us to only send commands if needed
-  if (this->device_model_ != LevoitDeviceModel::CORE_400S) {
+  /*if (this->device_model_ != LevoitDeviceModel::CORE_400S) {
     this->set_interval("status", 5000, [this] {
       if (network::is_connected()) {
         if (remote_is_connected()) {
@@ -51,7 +51,7 @@ void Levoit::setup() {
         this->send_command(statusRequest);
       }
     });
-  }
+  }*/
 }
 
 void Levoit::loop() {
