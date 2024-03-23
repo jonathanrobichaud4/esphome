@@ -18,7 +18,7 @@ void LevoitSensor::setup() {
       this->publish_state(payloadData[11]);
     }
     else if (this->purpose_ == LevoitSensorPurpose::HUMIDITY) {
-      this->publish_state(payloadData[20]);
+      this->publish_state(payloadData[11]);
     }
   });
 }

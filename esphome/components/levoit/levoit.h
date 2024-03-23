@@ -20,14 +20,13 @@ enum class LevoitPayloadType : uint32_t {
   SET_DISPLAY_LOCK = 0x0100D1,
   SET_WIFI_STATUS_LED = 0x0129A1, //works
   SET_POWER_STATE = 0x0100A0, //works
-  
+  STATUS_RESPONSE = 0x018540,
 
   //partially working:
   SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
   SET_LIGHT_BRIGHTNESS = 0x0103A0,
   
   //Not sure:
-  STATUS_RESPONSE = 0x018540,
   TIMER_STATUS = 0x0165A2,
   SET_TIMER_TIME = 0x0164A2,
   TIMER_START_OR_CLEAR = 0x0166A2,
