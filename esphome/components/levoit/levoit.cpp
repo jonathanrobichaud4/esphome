@@ -15,13 +15,13 @@ static const int MAX_RETRIES = 5;
 void Levoit::setup() {
   ESP_LOGI(TAG, "Setting up Levoit %s", device_model_ == LevoitDeviceModel::CORE_300S ? "Core 300S" : "Core 400S");
 
-  this->set_interval("heartbeat", 15000, [this] {
+  /*this->set_interval("heartbeat", 15000, [this] {
     ESP_LOGV(TAG, "Sending heartbeat");
     LevoitCommand statusRequest = {.payloadType = LevoitPayloadType::STATUS_REQUEST,
                                    .packetType = LevoitPacketType::SEND_MESSAGE,
                                    .payload = {0x00}};
-    this->send_command(statusRequest);
-  });
+    this->send_command(statusRequest);*/
+  //});
 
   // this seems to introduce significant message unreliability on the 400s;
   // we must be approaching mcu capacity
