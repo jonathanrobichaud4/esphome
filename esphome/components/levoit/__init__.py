@@ -12,14 +12,14 @@ CODEOWNERS = ["@acvigue"]
 CONF_LEVOIT_ID = "levoit"
 CONF_LEVOIT_MODEL = "model"
 
-VALID_MODELS = ["core300s", "core400s"]
+VALID_MODELS = ["core300s", "core400s", "classic300s"]
 
 levoit_ns = cg.esphome_ns.namespace("levoit")
 Levoit = levoit_ns.class_("Levoit", cg.Component, uart.UARTDevice)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(Levoit),
-    cv.Optional(CONF_LEVOIT_MODEL, default="core300s"):  cv.All(cv.string, cv.one_of(*VALID_MODELS)),
+    cv.Optional(CONF_LEVOIT_MODEL, default="classic300s"):  cv.All(cv.string, cv.one_of(*VALID_MODELS)),
 }).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 
 async def to_code(config):

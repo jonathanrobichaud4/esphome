@@ -11,25 +11,35 @@
 namespace esphome {
 namespace levoit {
 
-enum class LevoitDeviceModel : uint8_t { NONE, CORE_300S, CORE_400S };
+enum class LevoitDeviceModel : uint8_t { NONE, CORE_300S, CORE_400S, CLASSIC_300S };
 
-enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12 || 0x02, ERROR = 0x52 };
+enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12, STATUS_MESSAGE = 0x02, ERROR = 0x52 };
 
 enum class LevoitPayloadType : uint32_t {
-  STATUS_REQUEST = 0x013140,
+  //confirmed working:
+  SET_DISPLAY_LOCK = 0x0100D1,
+  SET_WIFI_STATUS_LED = 0x0129A1, //works
+  SET_POWER_STATE = 0x0100A0, //works
+  
+
+  //partially working:
+  SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
+  SET_LIGHT_BRIGHTNESS = 0x0103A0,
+  
+  //Not sure:
+  STATUS_RESPONSE = 0x018540,
+  TIMER_STATUS = 0x0165A2,
+  SET_TIMER_TIME = 0x0164A2,
+  TIMER_START_OR_CLEAR = 0x0166A2,
+
+ //not working/not applicable:
+  STATUS_REQUEST = 0x013140, //not possible on classic 300
   STATUS_RESPONSE = 0x013040,
   SET_FAN_AUTO_MODE = 0x01E6A5,
   SET_FAN_MANUAL = 0x0160A2,
   SET_FAN_MODE = 0x01E0A5,
-  SET_DISPLAY_LOCK = 0x0100D1,
-  SET_WIFI_STATUS_LED = 0x0129A1,
-  SET_POWER_STATE = 0x0100A0,
-  SET_SCREEN_BRIGHTNESS = 0x0105A1,
   SET_FILTER_LED = 0x01E2A5,
   RESET_FILTER = 0x01E4A5,
-  TIMER_STATUS = 0x0165A2,
-  SET_TIMER_TIME = 0x0164A2,
-  TIMER_START_OR_CLEAR = 0x0166A2
 };
 
 struct LevoitListener {
@@ -46,11 +56,20 @@ typedef struct LevoitCommand {
 using PayloadTypeOverrideMap = std::unordered_map<LevoitDeviceModel, std::unordered_map<LevoitPayloadType, uint32_t>>;
 
 static const PayloadTypeOverrideMap MODEL_SPECIFIC_PAYLOAD_TYPES = {
-    {LevoitDeviceModel::CORE_400S,
-     {
+    //{LevoitDeviceModel::CORE_400S,
+     /*{
          {LevoitPayloadType::STATUS_REQUEST, 0x01b140}, {LevoitPayloadType::STATUS_RESPONSE, 0x01b040},
          // ... add other model-specific overrides here ...
      }},
+
+     {LevoitDeviceModel::CLASSIC_300S,
+     {
+         //{LevoitPayloadType::STATUS_REQUEST, 0x01b140}, {LevoitPayloadType::STATUS_RESPONSE, 0x01b040}, ESP doesn't send a request for status, 
+         //it just sends a status message every ~4 seconds every ~4 senconds
+         // ... add other model-specific overrides here ...
+     }},*/
+
+
     // ... add other device models and their overrides here ...
 };
 

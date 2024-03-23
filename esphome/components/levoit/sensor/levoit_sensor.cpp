@@ -17,6 +17,9 @@ void LevoitSensor::setup() {
     } else if (this->purpose_ == LevoitSensorPurpose::AIR_QUALITY) {
       this->publish_state(payloadData[11]);
     }
+    else if (this->purpose_ == LevoitSensorPurpose::HUMIDITY) {
+      this->publish_state(payloadData[20]);
+    }
   });
 }
 

@@ -13,7 +13,7 @@ static const int RECEIVE_TIMEOUT = 50000;
 static const int MAX_RETRIES = 5;
 
 void Levoit::setup() {
-  ESP_LOGI(TAG, "Setting up Levoit %s", device_model_ == LevoitDeviceModel::CORE_300S ? "Core 300S" : "Core 400S");
+  ESP_LOGI(TAG, "Setting up Levoit %s", device_model_ == LevoitDeviceModel::CORE_300S ? "Core 300S" : "Classic 300S");
 
   /*this->set_interval("heartbeat", 15000, [this] {
     ESP_LOGV(TAG, "Sending heartbeat");
@@ -78,7 +78,7 @@ bool Levoit::validate_message_() {
       ESP_LOGE(TAG, "Received error response, ignoring packet");
       return false;
     }
-    return (new_byte == 0x12) || (new_byte == 0x22);
+    return (new_byte == 0x12) || (new_byte == 0x22) || (new_byte == 0x02);
   }
 
   uint8_t sequenceNumber = data[2];
@@ -255,7 +255,11 @@ void Levoit::set_device_model(std::string model) {
     device_model_ = LevoitDeviceModel::CORE_300S;
   } else if (model == "core400s") {
     device_model_ = LevoitDeviceModel::CORE_400S;
-  } else {
+  } else if (model == "classic300s") {
+    device_model_ = LevoitDeviceModel::CLASSIC_300S;
+  } 
+  
+  else {
     ESP_LOGW(TAG, "Unknown device model: %s", model.c_str());
   }
 }
