@@ -13,14 +13,9 @@ void LevoitLight::setup() {
 
         // Assuming you have a reference to your MonochromaticLightOutput instance
         if (output_ != nullptr) {
-            // Convert the brightness value to a normalized float value between 0 and 1
             float brightness_normalized = static_cast<float>(brightness_value) /100.0f;
-            
-            // Set the brightness of the light using the MonochromaticLightOutput instance
             output_->set_level(brightness_normalized);
-
-            // Publish the state of the light
-            //this->publish_state();
+            //publish_state();
             //this->publish_state();
         }
   });
@@ -95,6 +90,14 @@ void LevoitLight::write_state(light::LightState *state) {
                                               .payload = {0x00, 0x00, 0x01, targetSpeed}});
   }*/
 }
+
+// void LevoitLight::publish_state() {
+//     ESP_LOGCONFIG(TAG, "Levoit Light");
+//     if (output_) {
+//         // Publish state if output is available
+//         output_->publish_state();
+//     }
+// }
 
 }  // namespace levoit
 }  // namespace esphome
