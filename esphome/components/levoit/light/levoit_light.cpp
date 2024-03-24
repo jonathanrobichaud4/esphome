@@ -20,6 +20,7 @@ void LevoitLight::setup() {
     ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     //this->current_values_as_brightness(brightness);
     this->publish_state();
+    this->write_state(this);
       
   });
 }
