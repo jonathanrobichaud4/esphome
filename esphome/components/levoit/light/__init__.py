@@ -17,7 +17,7 @@ LevoitLightPurpose = levoit_ns.enum("LevoitLightPurpose")
 CONFIG_SCHEMA = (
     cv.Schema({
         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
-        cv.Optional(CONF_LIGHT): light.BRIGHTNESS_ONLY_LIGHT_SCHEMA(LevoitLight, icon=ICON_LIGHTBULB).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_LIGHT): light.BRIGHTNESS_ONLY_LIGHT_SCHEMA(LevoitLight).extend(cv.COMPONENT_SCHEMA),
     })
 )
 
