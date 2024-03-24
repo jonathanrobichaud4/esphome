@@ -55,7 +55,7 @@ void LevoitLight::write_state(light::LightState *state) {
   if (brightness > 0.0f) {
      if (this->state_->current_values.is_on() == true) {
 
-        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_POWER_STATE,
+        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
                                                   .payload = {0x00, static_cast<uint8_t>(brightness)}});
         //break;
