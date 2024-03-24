@@ -22,7 +22,7 @@ void LevoitLight::setup() {
   });
 }
 
-void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Fan", this); }
+//void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Fan", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
   float bright;
