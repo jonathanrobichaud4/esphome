@@ -8,9 +8,9 @@ namespace levoit {
 static const char *const TAG = "levoit.light";
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-    uint8_t brightness_uint = payloadData[15];
+    //uint8_t brightness_uint = 
 
-    float value = (float)brightness_uint;
+    float value = (float)payloadData[15];
     brightness = &value;
 
     ESP_LOGI("", "%f Levoit Light", &brightness);
