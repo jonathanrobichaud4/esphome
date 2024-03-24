@@ -7,30 +7,23 @@ namespace esphome {
 namespace levoit {
 
 static const char *const TAG = "levoit.light";
+float brightness = 0.0;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-     uint8_t brightness_value = payloadData[4];
+     uint8_t brightness_value = payloadData[15];
 
         // Assuming you have a reference to your MonochromaticLightOutput instance
         if (output_ != nullptr) {
             float brightness_normalized = static_cast<float>(brightness_value) /100.0f;
-            output_->set_level(brightness_normalized);
+            //output_->set_level(brightness_normalized);
+            brightness = brightness_normalized;
             //publish_state();
             //this->publish_state();
         }
   });
 }
 
-/*void LevoitLight::publish_state() {
-  ESP_LOGCONFIG(TAG, "Levoit Light");
-}*/
 
-/*light::LightState *LevoitLight::publish_state() {
-  return &light_state_;
-}*/
-void LevoitLight::set_output(output::FloatOutput *output) {
-  output_ = output;
-}
 
 light::LightTraits LevoitLight::get_traits() {
   auto traits = light::LightTraits();
@@ -40,8 +33,8 @@ light::LightTraits LevoitLight::get_traits() {
 
 void LevoitLight::write_state(light::LightState *state) {
   float bright;
-  state->current_values_as_brightness(&bright);
-  output_->set_level(bright);
+  state->current_values_as_brightness(&brightness);
+  //output_->set_level(bright);
   //bool newPowerState = this->state;
 
   /*if (bright==brightness) {
@@ -90,14 +83,5 @@ void LevoitLight::write_state(light::LightState *state) {
                                               .payload = {0x00, 0x00, 0x01, targetSpeed}});
   }*/
 }
-
-// void LevoitLight::publish_state() {
-//     ESP_LOGCONFIG(TAG, "Levoit Light");
-//     if (output_) {
-//         // Publish state if output is available
-//         output_->publish_state();
-//     }
-// }
-
 }  // namespace levoit
 }  // namespace esphome

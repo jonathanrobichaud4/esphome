@@ -1,41 +1,39 @@
 #pragma once
-
 #include "esphome/core/component.h"
 #include "esphome/components/levoit/levoit.h"
 #include "esphome/components/light/light_state.h"
 #include "esphome/components/light/light_output.h"  // Include for LightOutput
-#include "esphome/components/output/float_output.h"  // Include for FloatOutput
-
 namespace esphome {
-namespace levoit {
+  namespace levoit {
 
-class LevoitLight : public Component, public light::LightOutput {
- public:
-  LevoitLight(Levoit *parent) : parent_(parent), output_(nullptr) {}
+    class LevoitLight : public Component, public light::LightOutput {
+      public:
+        void setup() override;
+        LevoitLight(Levoit *parent, float *output) : parent_(parent), output_(output) {
+          output_ = output;
+        }
+        light::LightTraits get_traits() override {
+          auto traits = light::LightTraits();
+          traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
+          return traits;
+        }
 
-  void set_output(output::FloatOutput *output) { output_ = output; }
+        
 
-  void setup() override;
-  void dump_config() override;
+        //void set_output(output::FloatOutput *output) { output_ = output; }
 
-  light::LightTraits get_traits() override {
-    auto traits = light::LightTraits();
-    traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
-    return traits;
+        
+
+
+        void write_state(light::LightState *state) override;
+        void dump_config() override;
+        
+
+      protected:
+        Levoit *parent_;
+        float *output_;
+        //output::FloatOutput *output_;
+    };
   }
-
-  void write_state(light::LightState *state) override {
-    if (output_) {
-      float brightness;
-      state->current_values_as_brightness(&brightness);
-      output_->set_level(brightness);
-    }
-  }
-
- protected:
-  Levoit *parent_;
-  output::FloatOutput *output_;
-};
-
 }  // namespace levoit
-}  // namespace esphome
+  // namespace esphome
