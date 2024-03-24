@@ -15,20 +15,6 @@ CODEOWNERS = ["@acvigue"]
 # CONF_LIGHT = "night_light"
 
 LevoitLight = levoit_ns.class_("LevoitLight", light.LightOutput, cg.Component)
-# LevoitLightPurpose = levoit_ns.enum("LevoitLightPurpose")
-#LevoitLight = levoit_ns.class_('LevoitLight', light.LightOutput)
-
-# CONFIG_SCHEMA = (
-#     cv.Schema({
-#         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
-#         cv.Optional(CONF_LIGHT): light.BRIGHTNESS_ONLY_LIGHT_SCHEMA(LevoitLight).extend(cv.COMPONENT_SCHEMA),
-#     })
-# )
-
-# CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend({
-#     cv.GenerateID(CONF_LEVOIT_ID): cv.declare_id(LevoitLight),
-#     #cv.Required(CONF_OUTPUT): cv.use_id(output.FloatOutput)
-# })
 
 CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend(
     {

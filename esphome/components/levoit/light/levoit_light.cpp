@@ -69,7 +69,7 @@ light::LightTraits LevoitLight::get_traits() {
 
 void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 
-
+void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
   //float bright;
