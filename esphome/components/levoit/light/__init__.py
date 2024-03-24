@@ -27,5 +27,5 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
 
     if config_light := config.get(CONF_LIGHT):
-        var = await light.new_light(config_light, parent, LevoitLightPurpose.LIGHT)
+        var = await light.new_light(config_light, parent, LevoitLightPurpose.NIGHT_LIGHT)
         await cg.register_component(var, config_light)

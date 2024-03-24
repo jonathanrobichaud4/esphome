@@ -7,6 +7,7 @@
 namespace esphome {
   namespace levoit {
 
+    enum LevoitLightPurpose : uint8_t { NIGHT_LIGHT };
     class LevoitLight : public light::LightOutput, public light::LightCall, public light::LightState, light::LightColorValues {
       public:
         
