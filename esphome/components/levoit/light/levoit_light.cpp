@@ -19,7 +19,7 @@ void LevoitLight::setup() {
             //publish_state();
             //this->publish_state();
         }
-
+      this->publish_state();
       
   });
 }

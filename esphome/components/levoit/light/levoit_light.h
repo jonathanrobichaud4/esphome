@@ -3,27 +3,23 @@
 #include "esphome/components/levoit/levoit.h"
 #include "esphome/components/light/light_state.h"
 #include "esphome/components/light/light_output.h"  // Include for LightOutput
+#include "esphome/components/light/light_call.h"  // Include for LightCall
+#include "esphome/components/monochromatic/monochromatic_light_output.h"  // Include for LightTraits
 namespace esphome {
   namespace levoit {
 
-    class LevoitLight : public Component, public light::LightOutput {
+    class LevoitLight : public Component, public light::LightOutput, public light::LightState {
       public:
         
-        LevoitLight(Levoit *parent) : parent_(parent) {}
+  
+      LevoitLight(Levoit *parent) : light::LightState(this), parent_(parent) {}
         void setup() override;
-        //void dump_config() override;
+        void dump_config() override;
         light::LightTraits get_traits() override {
           auto traits = light::LightTraits();
           traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
           return traits;
         }
-
-        
-
-        //void set_output(output::FloatOutput *output) { output_ = output; }
-
-        
-
 
       void write_state(light::LightState *state) override;
         
