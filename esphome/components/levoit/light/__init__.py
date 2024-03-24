@@ -40,7 +40,7 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
     
     var = cg.new_Pvariable(config[CONF_LIGHT], parent)
-    yield light.register_light(var, config)
+    await light.register_light(var, config)
 
     #out = yield cg.get_variable(config[CONF_OUTPUT])
     #cg.add(var.set_output(out))
