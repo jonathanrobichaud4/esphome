@@ -22,7 +22,9 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
 
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
-
     var = cg.new_Pvariable(config[CONF_OUTPUT_ID], parent)
     await cg.register_component(var, config)
     await fan.register_fan(var, config)
+    print("Parent: ", parent)
+    print("Config: ", config)
+    print("Output ID: ", config[CONF_OUTPUT_ID])
