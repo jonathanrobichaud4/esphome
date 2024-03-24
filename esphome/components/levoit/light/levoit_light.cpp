@@ -17,7 +17,13 @@ void LevoitLight::setup() {
 
     ESP_LOGI("", "%f Levoit Light brightnessr", this->current_values.get_brightness());
 
-    ESP_LOGI("", "%f Levoit Light", this->current_values.is_on());
+    //ESP_LOGI("", "%f Levoit Light", );
+    if(this->current_values.is_on()){
+      ESP_LOGI("", "Levoit Light on");
+    }
+    else{
+      ESP_LOGI("", "Levoit Light off");
+    }
     
     //this->current_values_as_brightness(brightness);
     
