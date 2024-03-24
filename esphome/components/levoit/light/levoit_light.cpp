@@ -1,7 +1,6 @@
 #include "esphome/core/log.h"
 #include "levoit_light.h"
 #include "esphome/components/light/light_state.h"
-#include <components/light/light_state.h>
 
 namespace esphome {
 namespace levoit {
