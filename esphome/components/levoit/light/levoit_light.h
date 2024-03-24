@@ -12,7 +12,7 @@ namespace esphome {
       public:
         
   
-      LevoitLight(Levoit *parent) : LightState(this), LightCall(this), parent_(parent) {}
+      LevoitLight(Levoit *parent) : parent_(parent), LightState(this), LightCall(this)  {}
         void setup() override;
         void dump_config() override;
          
