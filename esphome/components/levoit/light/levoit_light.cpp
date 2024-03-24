@@ -22,7 +22,7 @@ void LevoitLight::setup() {
     //brightness = &value;
     *((uint8_t*)brightness) = *((uint8_t*)&brightness_uint);
 
-    ESP_LOGI("", "%f Levoit Light", brightness_uint);
+    ESP_LOGI("", "%d Levoit Light", brightness_uint);
     this->current_values_as_brightness(brightness);
     this->publish_state();
       
