@@ -10,10 +10,15 @@ static const char *const TAG = "levoit.light";
 
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-    /*uint8_t brightness_uint = payloadData[15];
+    uint8_t brightness_uint = payloadData[15];
     float value = brightness_uint;
     float brightness = value / 100.0f;
       auto call = this->state_->make_call();
+
+      if (this->state_->current_values != this->state_->remote_values) {
+         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+         return;
+       }
 
       if (brightness == 0) {
         call.set_state(false);
@@ -24,7 +29,7 @@ void LevoitLight::setup() {
       //call.set_publish(true);
       //call.set_brightness(brightness);
       call.perform();
-      this->state_->publish_state();*/
+      this->state_->publish_state();
      });
    }
     
