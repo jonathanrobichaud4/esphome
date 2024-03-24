@@ -13,7 +13,7 @@ void LevoitLight::setup() {
 
         // Assuming you have a reference to your MonochromaticLightOutput instance
         if (output_ != nullptr) {
-            float brightness_normalized = static_cast<float>(brightness_value) / 10.0f;
+            float brightness_normalized = static_cast<float>(brightness_value) / 1.0f;
             
             //output_->set_level(brightness_normalized);
             brightness = brightness_normalized;
