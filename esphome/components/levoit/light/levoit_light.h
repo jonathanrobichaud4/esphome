@@ -4,7 +4,6 @@
 #include "esphome/components/light/light_state.h"
 #include "esphome/components/light/light_output.h"  // Include for LightOutput
 #include "esphome/components/light/light_call.h"  // Include for LightCall
-#include "esphome/components/monochromatic/monochromatic_light_output.h"  // Include for LightTraits
 namespace esphome {
   namespace levoit {
 
