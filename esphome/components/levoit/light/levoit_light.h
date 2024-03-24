@@ -26,7 +26,6 @@ namespace esphome {
 
 
         void write_state(light::LightState *state) override;
-        void dump_config() override;
         
 
       protected:
