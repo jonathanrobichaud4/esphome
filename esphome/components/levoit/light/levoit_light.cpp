@@ -23,13 +23,6 @@ void LevoitLight::setup() {
 }
 
 
-
-light::LightTraits LevoitLight::get_traits() {
-  auto traits = light::LightTraits();
-  traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
-  return traits;
-}
-
 void LevoitLight::write_state(light::LightState *state) {
   float bright;
   state->current_values_as_brightness(&brightness);
