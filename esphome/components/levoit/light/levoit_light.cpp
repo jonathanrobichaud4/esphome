@@ -22,7 +22,8 @@ void LevoitLight::setup() {
     ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     //this->current_values_as_brightness(brightness);
     
-    this->set_brightness(value_range);
+    this->remote_values.set_brightness(value_range);
+    ESP_LOGI("", "%f Levoit Light float range", value_range);
     this->publish_state();
     //this->write_state(this);
       
