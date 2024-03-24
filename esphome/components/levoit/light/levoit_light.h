@@ -26,6 +26,7 @@ namespace esphome {
       protected:
         Levoit *parent_;
         float *output_;
+        float* brightness;
         //output::FloatOutput *output_;
     };
   }

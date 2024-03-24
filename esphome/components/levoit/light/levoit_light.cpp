@@ -6,25 +6,15 @@ namespace esphome {
 namespace levoit {
 
 static const char *const TAG = "levoit.light";
-float brightness = 0.0;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-     uint8_t brightness_value = payloadData[15];
+    uint8_t brightness_uint = payloadData[15];
 
-        // Assuming you have a reference to your MonochromaticLightOutput instance
-        if (output_ != nullptr) {
-            float brightness_normalized = static_cast<float>(brightness_value) / 1.0f;
-            
-            //output_->set_level(brightness_normalized);
-            brightness = brightness_normalized;
-            //
-            //publish_state();
-            //this->publish_state();
+    brightness = (float*)brightness_uint;
 
-        }
-        ESP_LOGI("", "%f Levoit Light", &brightness);
-      this->current_values_as_brightness(&brightness);
-      this->publish_state();
+    ESP_LOGI("", "%f Levoit Light", brightness);
+    this->current_values_as_brightness(brightness);
+    this->publish_state();
       
   });
 }
