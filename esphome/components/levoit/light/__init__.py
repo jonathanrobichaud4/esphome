@@ -38,7 +38,13 @@ CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend(
 
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
+    
+    var = cg.new_Pvariable(config[CONF_LIGHT], parent)
+    yield light.register_light(var, config)
 
-    if config_light := config.get(CONF_LIGHT):
-        var = await light.new_light(config_light, parent, LevoitLightPurpose.NIGHT_LIGHT)
-        await cg.register_component(var, config_light)
+    #out = yield cg.get_variable(config[CONF_OUTPUT])
+    #cg.add(var.set_output(out))
+
+    # if config_light := config.get(CONF_LIGHT):
+    #     var = await light.new_light(config_light, parent, LevoitLightPurpose.NIGHT_LIGHT)
+    #     await cg.register_component(var, config_light)
