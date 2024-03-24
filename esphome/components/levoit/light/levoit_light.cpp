@@ -16,9 +16,11 @@ void LevoitLight::setup() {
 
   if (value_range == 0.0f) {
     //this->current_values.set_brightness(value_range);
-    this->current_values.set_state(0.0f);
+    this->current_values.set_state(false);
+    ESP_LOGI("", "Levoit Light off if statement");
   } else {
-    this->current_values.set_state(value_range);
+    this->current_values.set_state(true);
+    ESP_LOGI("", "Levoit Light on if statement");
   }
     ESP_LOGI("", "%f Levoit Light brightnessr", this->current_values.get_brightness());
 
