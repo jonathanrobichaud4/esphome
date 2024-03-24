@@ -23,6 +23,7 @@ void LevoitLight::setup() {
        //call.set_brightness(float(datapoint.value_uint) / this->max_value_);
       call.set_brightness(value_range);
       call.perform();
+      this->publish_state();
      });
    }
     
