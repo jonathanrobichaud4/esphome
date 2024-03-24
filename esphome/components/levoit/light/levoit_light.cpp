@@ -42,7 +42,7 @@ void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
 
-  auto call = this->state_->make_call();
+  /*auto call = this->state_->make_call();
   float brightness = 0.0f;
   //this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
@@ -62,9 +62,9 @@ void LevoitLight::write_state(light::LightState *state) {
        /*auto brightness_int = static_cast<uint32_t>(brightness * this->max_value_);
        brightness_int = std::max(brightness_int, this->min_value_);
  
-       this->parent_->set_integer_datapoint_value(*this->dimmer_id_, brightness_int);*/
+       this->parent_->set_integer_datapoint_value(*this->dimmer_id_, brightness_int);
      }
-   }
+   }*/
   /*bool newPowerState = this->state_->current_values_as_binary;
 
   if (call.get_state().has_value()) {
