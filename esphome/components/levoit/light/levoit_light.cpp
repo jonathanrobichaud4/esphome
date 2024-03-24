@@ -28,7 +28,6 @@ void LevoitLight::setup() {
      });
    }
     
-//void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 light::LightTraits LevoitLight::get_traits() {
           auto traits = light::LightTraits();
@@ -42,14 +41,34 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
-  //float bright;
+
+  auto call = this->state_->make_call();
+  float brightness = 0.0f;
   //this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
   //output_->set_level(bright);
-  //bool newPowerState = this->state;
+  this->state_->current_values_as_brightness(&brightness);
 
-  /*if (bright==brightness) {
-    //newPowerState = state->get_state();
+  brightness = this->state_->current_values.get_brightness();
+  ESP_LOGI(TAG, " Sent Brightness: %f", brightness);
+
+  if (brightness > 0.0f) {
+     if (this->state_->current_values.is_on() == true) {
+
+        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_POWER_STATE,
+                                                  .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                  .payload = {0x00, static_cast<uint8_t>(brightness)}});
+        //break;
+       /*auto brightness_int = static_cast<uint32_t>(brightness * this->max_value_);
+       brightness_int = std::max(brightness_int, this->min_value_);
+ 
+       this->parent_->set_integer_datapoint_value(*this->dimmer_id_, brightness_int);*/
+     }
+   }
+  /*bool newPowerState = this->state_->current_values_as_binary;
+
+  if (call.get_state().has_value()) {
+    newPowerState = state->get_state();
 
     switch (this->parent_->device_model_) {
       case LevoitDeviceModel::CORE_400S:
@@ -87,12 +106,12 @@ void LevoitLight::write_state(light::LightState *state) {
         // set to 1 instead
         targetSpeed = 1;
       }
-    }*/
+    }
 
-   /* this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_FAN_MANUAL,
+    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_FAN_MANUAL,
                                               .packetType = LevoitPacketType::SEND_MESSAGE,
                                               .payload = {0x00, 0x00, 0x01, targetSpeed}});
-  }*/
-}
+  }
+}*/
 }  // namespace levoit
 }  // namespace esphome
