@@ -20,7 +20,7 @@ void LevoitLight::setup() {
             //this->publish_state();
 
         }
-        ESP_LOGI("", "Levoit Light", this);
+        ESP_LOGI("", "%f Levoit Light", brightness);
       this->publish_state();
       
   });
