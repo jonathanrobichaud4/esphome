@@ -24,8 +24,8 @@ void LevoitLight::setup() {
       //call.set_publish(true);
       //call.set_brightness(brightness);
       call.perform();
-      this->state_->publish_state();
-     });*/
+      this->state_->publish_state();*/
+     });
    }
     
 
