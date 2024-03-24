@@ -13,13 +13,16 @@ void LevoitLight::setup() {
     uint8_t brightness_uint = payloadData[15];
     float value = brightness_uint;
     brightness = &value;
+    float value_range = value / 100.0f;
 
 
     ESP_LOGI("", "%d Levoit Light uint", brightness_uint);
     ESP_LOGI("", "%f Levoit Light float", value);
+    ESP_LOGI("", "%f Levoit Light float range", value_range);
     ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     //this->current_values_as_brightness(brightness);
-    this->set_brightness(value);
+    
+    this->set_brightness(value_range);
     this->publish_state();
     //this->write_state(this);
       
