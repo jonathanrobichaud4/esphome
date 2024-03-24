@@ -14,51 +14,16 @@ void LevoitLight::setup() {
     float value = brightness_uint;
     brightness = &value;
     float value_range = value / 100.0f;
-
-    if (this->state_->current_values != this->state_->remote_values) {
-         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
-         return;
-       }
- 
       auto call = this->state_->make_call();
        //call.set_brightness(float(datapoint.value_uint) / this->max_value_);
-      call.set_publish(true);
+      //call.set_publish(true);
       call.set_brightness(value_range);
       call.perform();
-      //this->publish_state();
+      this->state_->publish_state();
      });
    }
     
 //void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
-/*
-  if (value_range == 0.0f) {
-    //this->current_values.set_brightness(value_range);
-    this->current_values.set_state(false);
-    this->turn_on();
-    ESP_LOGI("", "Levoit Light on if statement");
-  } else {
-    this->current_values.set_state(true);
-    this->turn_on();
-    ESP_LOGI("", "Levoit Light off if statement");
-  }
-    ESP_LOGI("", "%f Levoit Light brightnessr", this->current_values.get_brightness());
-
-    //ESP_LOGI("", "%f Levoit Light", );
-    if(this->current_values.is_on()){
-      ESP_LOGI("", "Levoit Light on");
-    }
-    else{
-      ESP_LOGI("", "Levoit Light off");
-    }
-    
-    //this->current_values_as_brightness(brightness);
-    
-    //this->current_values.set_brightness(value_range);
-
-    this->publish_state();
-    dump_config();
-    //this->write_state(this);*/ 
-    //this->write_state(this);
 
 light::LightTraits LevoitLight::get_traits() {
           auto traits = light::LightTraits();
