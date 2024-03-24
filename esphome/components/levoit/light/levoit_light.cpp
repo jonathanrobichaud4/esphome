@@ -13,7 +13,19 @@ void LevoitLight::setup() {
     float value = brightness_uint;
     brightness = &value;
     float value_range = value / 100.0f;
-
+    if (this->state_->current_values != this->state_->remote_values) {
+         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+         return;
+       }
+ 
+      auto call = this->state_->make_call();
+       //call.set_brightness(float(datapoint.value_uint) / this->max_value_);
+      call.set_brightness(value_range);
+      call.perform();
+     });
+   }
+    
+/*
   if (value_range == 0.0f) {
     //this->current_values.set_brightness(value_range);
     this->current_values.set_state(false);
@@ -40,10 +52,9 @@ void LevoitLight::setup() {
 
     this->publish_state();
     dump_config();
+    //this->write_state(this);*/ 
     //this->write_state(this);
-      
-  });
-}
+    
 
 void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 

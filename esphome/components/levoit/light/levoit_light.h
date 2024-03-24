@@ -28,6 +28,7 @@ namespace esphome {
       protected:
         Levoit *parent_;
         float *output_;
+        light::LightState *state_{nullptr};
         
         //output::FloatOutput *output_;
     };
