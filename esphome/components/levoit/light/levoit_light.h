@@ -15,11 +15,11 @@ namespace esphome {
       LevoitLight(Levoit *parent) : LightState(this), LightCall(this), parent_(parent) {}
         void setup() override;
         void dump_config() override;
-        light::LightTraits get_traits() override {
-          auto traits = light::LightTraits();
-          traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
-          return traits;
-        }
+         
+
+      light::LightTraits get_traits() override;
+
+      void LevoitLight::setup_state(light::LightState *state) override;
 
       void write_state(light::LightState *state) override;
         
