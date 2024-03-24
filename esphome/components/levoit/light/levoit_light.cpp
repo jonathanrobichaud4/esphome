@@ -20,7 +20,7 @@ void LevoitLight::setup() {
     ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     //this->current_values_as_brightness(brightness);
     this->set_brightness(value);
-    //this->publish_state();
+    this->publish_state();
     //this->write_state(this);
       
   });
@@ -30,7 +30,7 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Fan", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
   //float bright;
-  this->current_values_as_brightness(brightness);
+  //this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
   //output_->set_level(bright);
   //bool newPowerState = this->state;
