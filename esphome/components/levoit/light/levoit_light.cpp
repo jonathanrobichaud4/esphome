@@ -6,12 +6,22 @@ namespace esphome {
 namespace levoit {
 
 static const char *const TAG = "levoit.light";
+
+void uint8_to_float(uint8_t *src, float *dst, size_t count) {
+    // Iterate over each uint8_t value and convert it to float
+    for (size_t i = 0; i < count; ++i) {
+        // Assuming each uint8_t represents a single byte of a float
+        dst[i] = (float)src[i];
+    }
+}
+
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     //uint8_t brightness_uint = 
 
-    float value = (float)payloadData[15];
-    brightness = &value;
+    uint8_to_float(&payloadData[15], brightness, 1);
+    //float value = (float)payloadData[15];
+    //brightness = &value;
 
     ESP_LOGI("", "%f Levoit Light", &brightness);
     this->current_values_as_brightness(brightness);
