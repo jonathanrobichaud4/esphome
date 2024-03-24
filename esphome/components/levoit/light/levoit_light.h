@@ -8,6 +8,7 @@ namespace esphome {
     //enum LevoitLightPurpose : uint8_t { NIGHT_LIGHT };
     class LevoitLight : public Component, public light::LightOutput {
       public:
+        LevoitLight(Levoit *parent) : parent_(parent) {}
         void setup() override;
         void dump_config() override;
         light::LightTraits get_traits() override;
