@@ -16,14 +16,13 @@ union Converter {
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     uint8_t brightness_uint = payloadData[15];
+    float value = brightness_uint;
+    brightness = &value;
 
-
-    //float value = (float)payloadData[15];
-    //brightness = &value;
-    *((uint8_t*)brightness) = *((uint8_t*)&brightness_uint);
 
     ESP_LOGI("", "%d Levoit Light uint", brightness_uint);
-    ESP_LOGI("", "%f Levoit Light float", &brightness);
+    ESP_LOGI("", "%f Levoit Light float", value);
+    ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     this->current_values_as_brightness(brightness);
     this->publish_state();
       
