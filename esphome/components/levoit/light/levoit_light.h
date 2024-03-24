@@ -9,9 +9,7 @@ namespace esphome {
     class LevoitLight : public Component, public light::LightOutput {
       public:
         void setup() override;
-        LevoitLight(Levoit *parent, float *output) : parent_(parent), output_(output) {
-          output_ = output;
-        }
+        LevoitLight(Levoit *parent) : parent_(parent) {}
         light::LightTraits get_traits() override {
           auto traits = light::LightTraits();
           traits.set_supported_color_modes({light::ColorMode::BRIGHTNESS});
