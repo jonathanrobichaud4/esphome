@@ -13,16 +13,17 @@ void LevoitLight::setup() {
 
         // Assuming you have a reference to your MonochromaticLightOutput instance
         if (output_ != nullptr) {
-            float brightness_normalized = static_cast<float>(brightness_value) / 100.0f;
+            float brightness_normalized = static_cast<float>(brightness_value) / 10.0f;
             
             //output_->set_level(brightness_normalized);
             brightness = brightness_normalized;
-            //this->current_values_as_brightness(&brightness);
+            //
             //publish_state();
             //this->publish_state();
 
         }
         ESP_LOGI("", "%f Levoit Light", brightness);
+      this->current_values_as_brightness(&brightness);
       this->publish_state();
       
   });
