@@ -18,7 +18,9 @@ void LevoitLight::setup() {
             brightness = brightness_normalized;
             //publish_state();
             //this->publish_state();
+
         }
+        ESP_LOGI("", "Levoit Light", this);
       this->publish_state();
       
   });
