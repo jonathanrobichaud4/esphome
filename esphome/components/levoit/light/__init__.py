@@ -32,7 +32,7 @@ LevoitLight = levoit_ns.class_("LevoitLight", light.LightOutput, cg.Component)
 
 CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend(
     {
-        cv.GenerateID(CONF_LIGHT): cv.declare_id(LevoitLight),
+        cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(LevoitLight),
         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
     }
 ).extend(cv.COMPONENT_SCHEMA)
