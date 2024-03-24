@@ -23,10 +23,17 @@ LevoitLightPurpose = levoit_ns.enum("LevoitLightPurpose")
 #     })
 # )
 
-CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend({
-    cv.GenerateID(CONF_LEVOIT_ID): cv.declare_id(LevoitLight),
-    #cv.Required(CONF_OUTPUT): cv.use_id(output.FloatOutput)
-})
+# CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend({
+#     cv.GenerateID(CONF_LEVOIT_ID): cv.declare_id(LevoitLight),
+#     #cv.Required(CONF_OUTPUT): cv.use_id(output.FloatOutput)
+# })
+
+CONFIG_SCHEMA = light.BRIGHTNESS_ONLY_LIGHT_SCHEMA.extend(
+    {
+        cv.GenerateID(CONF_LIGHT): cv.declare_id(LevoitLight),
+        cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
+    }
+).extend(cv.COMPONENT_SCHEMA)
 
 
 async def to_code(config):
