@@ -10,7 +10,8 @@ void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     uint8_t brightness_uint = payloadData[15];
 
-    brightness = (float*)brightness_uint;
+    float value = (float)brightness_uint;
+    brightness = &value;
 
     ESP_LOGI("", "%f Levoit Light", brightness);
     this->current_values_as_brightness(brightness);
