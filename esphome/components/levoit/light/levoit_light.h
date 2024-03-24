@@ -22,11 +22,12 @@ namespace esphome {
 
       void write_state(light::LightState *state) override;
         
-
+      private: 
+        float* brightness;
       protected:
         Levoit *parent_;
         float *output_;
-        float* brightness;
+        
         //output::FloatOutput *output_;
     };
   }
