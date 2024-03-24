@@ -19,7 +19,7 @@ namespace esphome {
 
       light::LightTraits get_traits() override;
 
-      void LevoitLight::setup_state(light::LightState *state) override;
+      //void LevoitLight::setup_state(light::LightState *state) override;
 
       void write_state(light::LightState *state) override;
         

@@ -26,7 +26,7 @@ void LevoitLight::setup() {
      });
    }
     
-void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
+//void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 /*
   if (value_range == 0.0f) {
     //this->current_values.set_brightness(value_range);
