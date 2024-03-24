@@ -13,7 +13,8 @@ void LevoitLight::setup() {
 
         // Assuming you have a reference to your MonochromaticLightOutput instance
         if (output_ != nullptr) {
-            float brightness_normalized = static_cast<float>(brightness_value);
+            float brightness_normalized = static_cast<float>(brightness_value) /100.0f;
+            
             //output_->set_level(brightness_normalized);
             brightness = brightness_normalized;
             this->current_values_as_brightness(&brightness);
@@ -21,7 +22,7 @@ void LevoitLight::setup() {
             //this->publish_state();
 
         }
-        ESP_LOGI("", "%f Levoit Light", brightness);
+        ESP_LOGI("", "%f Levoit Light", this);
       this->publish_state();
       
   });
@@ -31,7 +32,7 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Fan", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
   float bright;
-  
+  //state->current_values_as_brightness(&brightness);
   //output_->set_level(bright);
   //bool newPowerState = this->state;
 
