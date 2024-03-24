@@ -115,3 +115,4 @@ void LevoitLight::write_state(light::LightState *state) {
 }*/
 }  // namespace levoit
 }  // namespace esphome
+}
