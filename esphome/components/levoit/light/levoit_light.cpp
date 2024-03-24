@@ -20,11 +20,7 @@ void LevoitLight::setup() {
 
     //float value = (float)payloadData[15];
     //brightness = &value;
-    union Converter conv;
-
-    // Set the uint8_t value
-    conv.uint_value = brightness_uint;
-    float *brightness = &conv.float_value;
+    *((uint8_t*)brightness) = *((uint8_t*)&brightness_uint);
 
     ESP_LOGI("", "%f Levoit Light", &brightness);
     this->current_values_as_brightness(brightness);
