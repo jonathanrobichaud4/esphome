@@ -7,11 +7,11 @@
 namespace esphome {
   namespace levoit {
 
-    class LevoitLight : public light::LightOutput, public light::LightState {
+    class LevoitLight : public light::LightOutput, public light::LightCall, public light::LightState {
       public:
         
   
-      LevoitLight(Levoit *parent) : LightState(this), parent_(parent) {}
+      LevoitLight(Levoit *parent) : LightState(this), LightCall(this), parent_(parent) {}
         void setup() override;
         void dump_config() override;
         light::LightTraits get_traits() override {
