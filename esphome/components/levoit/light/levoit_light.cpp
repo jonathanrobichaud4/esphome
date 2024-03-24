@@ -7,11 +7,6 @@ namespace levoit {
 
 static const char *const TAG = "levoit.light";
 
-union Converter {
-    uint8_t uint_value;
-    float float_value;
-};
-
 
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
@@ -23,7 +18,7 @@ void LevoitLight::setup() {
     ESP_LOGI("", "%d Levoit Light uint", brightness_uint);
     ESP_LOGI("", "%f Levoit Light float", value);
     ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
-    this->current_values_as_brightness(brightness);
+    //this->current_values_as_brightness(brightness);
     this->publish_state();
       
   });
@@ -33,6 +28,7 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Fan", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
   float bright;
+  this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
   //output_->set_level(bright);
   //bool newPowerState = this->state;
