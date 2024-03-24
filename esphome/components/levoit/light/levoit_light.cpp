@@ -1,6 +1,5 @@
 #include "esphome/core/log.h"
 #include "levoit_light.h"
-#include "esphome/components/light/light_state.h"
 
 namespace esphome {
 namespace levoit {
@@ -16,11 +15,10 @@ void LevoitLight::setup() {
     float value_range = value / 100.0f;
 
 
-    ESP_LOGI("", "%d Levoit Light uint", brightness_uint);
-    ESP_LOGI("", "%f Levoit Light float", value);
-    ESP_LOGI("", "%f Levoit Light float range", value_range);
-    ESP_LOGI("", "%f Levoit Light float pointer", &brightness);
     ESP_LOGI("", "%f Levoit Light brightnessr", this->current_values.get_brightness());
+
+    ESP_LOGI("", "%f Levoit Light", this->current_values.is_on());
+    
     //this->current_values_as_brightness(brightness);
     
     this->current_values.set_brightness(value_range);
