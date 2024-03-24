@@ -1,5 +1,6 @@
 #include "esphome/core/log.h"
 #include "levoit_light.h"
+#include "esphome/core/helpers.h"
 
 namespace esphome {
 namespace levoit {
@@ -14,12 +15,12 @@ void LevoitLight::setup() {
     brightness = &value;
     float value_range = value / 100.0f;
 
-    if (this->current_values != this->remote_values) {
+    if (this->state_->current_values != this->state_->remote_values) {
          ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
          return;
        }
  
-      auto call = this->make_call();
+      auto call = this->state_->make_call();
        //call.set_brightness(float(datapoint.value_uint) / this->max_value_);
       call.set_publish(true);
       call.set_brightness(value_range);

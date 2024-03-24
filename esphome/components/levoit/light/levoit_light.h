@@ -8,11 +8,11 @@ namespace esphome {
   namespace levoit {
 
     enum LevoitLightPurpose : uint8_t { NIGHT_LIGHT };
-    class LevoitLight : public light::LightOutput, public light::LightCall, public light::LightState, light::LightColorValues {
+    class LevoitLight : public Component, light::LightOutput {
       public:
         
   
-      LevoitLight(Levoit *parent) : parent_(parent), LightState(this), LightCall(this)  {}
+      //LevoitLight(Levoit *parent) : parent_(parent), LightState(this), LightCall(this)  {}
         void setup() override;
         void dump_config() override;
          
@@ -28,7 +28,7 @@ namespace esphome {
       protected:
         Levoit *parent_;
         float *output_;
-        //light::LightState *state_{nullptr};
+        light::LightState *state_{nullptr};
         
         //output::FloatOutput *output_;
     };
