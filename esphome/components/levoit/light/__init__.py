@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import light
 from esphome.const import (
-     ICON_LIGHTBULB, CONF_LIGHT
+     ICON_LIGHTBULB
  )
 
 from .. import levoit_ns, CONF_LEVOIT_ID, Levoit
@@ -10,7 +10,9 @@ from .. import levoit_ns, CONF_LEVOIT_ID, Levoit
 DEPENDENCIES = ["levoit"]
 CODEOWNERS = ["@acvigue"]
 
-LevoitLight = levoit_ns.class_("LevoitLight", cg.Component, light.LightOutput)
+CONF_LIGHT = "night_light"
+
+LevoitLight = levoit_ns.class_("LevoitLight", light.LightOutput, cg.Component)
 LevoitLightPurpose = levoit_ns.enum("LevoitLightPurpose")
 #LevoitLight = levoit_ns.class_('LevoitLight', light.LightOutput)
 
