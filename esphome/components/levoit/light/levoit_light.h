@@ -7,7 +7,7 @@
 namespace esphome {
   namespace levoit {
 
-    class LevoitLight : public light::LightOutput, public light::LightCall, public light::LightState {
+    class LevoitLight : public light::LightOutput, public light::LightCall, public light::LightState, light::LightColorValues {
       public:
         
   
