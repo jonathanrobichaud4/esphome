@@ -47,7 +47,7 @@ void LevoitLight::write_state(light::LightState *state) {
   //this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
   //output_->set_level(bright);
-  this->state_->current_values_as_brightness(&brightness);
+  //this->state_->current_values_as_brightness(&brightness);
 
   brightness = this->state_->current_values.get_brightness() * 100;
   ESP_LOGI(TAG, " Sent Brightness: %f", brightness);
