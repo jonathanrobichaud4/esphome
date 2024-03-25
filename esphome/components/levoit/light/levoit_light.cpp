@@ -14,8 +14,8 @@ void LevoitLight::setup() {
     float value = brightness_uint;
     float brightness = value / 100.0f;
       auto call = this->state_->make_call();
-       ESP_LOGD(TAG, "Current values: %f", this->state_->current_values.is_on());
-       ESP_LOGD(TAG, "Current values: %f", this->state_->remote_values.is_on());
+       ESP_LOGI(TAG, "Current values: %f", this->state_->current_values.is_on());
+       ESP_LOGI(TAG, "Current values: %f", this->state_->remote_values.is_on());
       if (this->state_->current_values != this->state_->remote_values) {
          ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
          return;
