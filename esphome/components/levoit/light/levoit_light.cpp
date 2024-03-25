@@ -50,7 +50,7 @@ void LevoitLight::write_state(light::LightState *state) {
   float brightness = 0.0f;
 
  state->current_values_as_brightness(&brightness);
-  ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100f);
+  ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100.0f);
 
   if (brightness > 0.0f) {
      if (this->state_->current_values.is_on() == true) {
