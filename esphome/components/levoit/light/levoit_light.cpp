@@ -15,7 +15,7 @@ void LevoitLight::setup() {
     float brightness = value / 100.0f;
       auto call = this->state_->make_call();
        ESP_LOGI(TAG, "Current values: %f", this->state_->current_values.is_on());
-       ESP_LOGI(TAG, "Current values: %f", this->state_->remote_values.is_on());
+       ESP_LOGI(TAG, "remote values: %f", this->state_->remote_values.is_on());
       if (this->state_->current_values != this->state_->remote_values) {
          ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
          return;
@@ -50,14 +50,14 @@ void LevoitLight::write_state(light::LightState *state) {
   float brightness = 0.0f;
 
  state->current_values_as_brightness(&brightness);
-  ESP_LOGI(TAG, " Sent Brightness: %f", brightness);
+  ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100f);
 
   if (brightness > 0.0f) {
      if (this->state_->current_values.is_on() == true) {
 
   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                             .packetType = LevoitPacketType::SEND_MESSAGE,
-                                            .payload = {0x00, 0x01, static_cast<uint8_t>(brightness)}});
+                                            .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
         //break;
      }
    }
