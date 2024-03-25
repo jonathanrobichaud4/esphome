@@ -47,7 +47,7 @@ void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
 
-  auto call = this->state_->make_call();
+  //auto call = this->state_->make_call();
   float brightness = 0.0f;
   //this->current_values_as_brightness(brightness);
   //state->current_values_as_brightness(&brightness);
@@ -57,15 +57,15 @@ void LevoitLight::write_state(light::LightState *state) {
  state->current_values_as_brightness(&brightness);
   ESP_LOGI(TAG, " Sent Brightness: %c", static_cast<uint8_t>(brightness));
 
-  //if (brightness > 0.0f) {
-     //if (this->state_->current_values.is_on() == true) {
+  if (brightness > 0.0f) {
+     if (this->state_->current_values.is_on() == true) {
 
   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                             .packetType = LevoitPacketType::SEND_MESSAGE,
                                             .payload = {0x00, 0x01, static_cast<uint8_t>(brightness)}});
         //break;
-    // }
-  // }
+     }
+   }
   /*bool newPowerState = this->state_->current_values_as_binary;
 
   if (call.get_state().has_value()) {
