@@ -23,7 +23,7 @@ void LevoitLight::setup() {
 
       if (brightness == 0) {
         call.set_state(false);
-      } else if (this->state_->current_values != this->state_->remote_values){
+      } else{
         call.set_state(true);
         call.set_brightness(brightness);
       }
@@ -52,7 +52,7 @@ void LevoitLight::write_state(light::LightState *state) {
  state->current_values_as_brightness(&brightness);
   ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100.0f);
 
-  if (brightness > 0.0f) {
+  if (brightness > 0.0f && this->state_->current_values != this->state_->remote_values) {
      if (this->state_->current_values.is_on() == true) {
 
   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
