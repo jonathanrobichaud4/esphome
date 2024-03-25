@@ -8,6 +8,7 @@ namespace levoit {
 static const char *const TAG = "levoit.light";
 
 bool is_transitioning = false;
+float requested_brightness = 0.0f;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     uint8_t brightness_uint = payloadData[15];
@@ -54,18 +55,22 @@ void LevoitLight::write_state(light::LightState *state) {
 
   if (brightness > 0.0f) {
      if (this->state_->current_values.is_on() == true) {
+      float target_brightness = brightness;
       is_transitioning = true;
 
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
                                                 .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
-            //break;
+
+     
+    if(brightness == target_brightness){
+      is_transitioning = false;
     }
-  else {
-    is_transitioning = false;
-   }
+   }      //break;
+   
+    }
+  
   } 
   
 }  // namespace levoit
 }  // namespace esphome
-}
