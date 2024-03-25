@@ -23,7 +23,7 @@ void LevoitLight::setup() {
 
       if (brightness == 0) {
         call.set_state(false);
-      } else {
+      } else if (this->state_->current_values != this->state_->remote_values){
         call.set_state(true);
         call.set_brightness(brightness);
       }
