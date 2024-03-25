@@ -14,7 +14,8 @@ void LevoitLight::setup() {
     float value = brightness_uint;
     float brightness = value / 100.0f;
       auto call = this->state_->make_call();
-
+       ESP_LOGD(TAG, "Current values: %f", this->state_->current_values.is_on());
+       ESP_LOGD(TAG, "Current values: %f", this->state_->remote_values.is_on());
       if (this->state_->current_values != this->state_->remote_values) {
          ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
          return;
@@ -46,13 +47,7 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
-
-  //auto call = this->state_->make_call();
   float brightness = 0.0f;
-  //this->current_values_as_brightness(brightness);
-  //state->current_values_as_brightness(&brightness);
-  //output_->set_level(bright);
-  //this->state_->current_values_as_brightness(&brightness);
 
  state->current_values_as_brightness(&brightness);
   ESP_LOGI(TAG, " Sent Brightness: %f", brightness);
@@ -66,54 +61,6 @@ void LevoitLight::write_state(light::LightState *state) {
         //break;
      }
    }
-  /*bool newPowerState = this->state_->current_values_as_binary;
-
-  if (call.get_state().has_value()) {
-    newPowerState = state->get_state();
-
-    switch (this->parent_->device_model_) {
-      case LevoitDeviceModel::CORE_400S:
-        // fan switch controls main power state
-        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_POWER_STATE,
-                                                  .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, newPowerState}});
-        break;
-      default:
-        // fan switch controls auto mode
-        if (newPowerState == true) {
-          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_FAN_MODE,
-                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                    .payload = {0x00, 0x00}});
-        } else {
-          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_FAN_MODE,
-                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                    .payload = {0x00, 0x02}});
-        }
-    }
-  }
-
-  if (call.get_speed().has_value()) {
-    uint8_t targetSpeed = *call.get_speed();
-
-    // 400s-specific behavior
-    if (this->parent_->device_model_ == LevoitDeviceModel::CORE_400S) {
-      // if fan is off, we don't set speed
-      if (newPowerState == false) {
-        return;
-      }
-
-      if (targetSpeed == 0) {
-        // fan speed can report as 0-speed (auto mode), but setting to 0-speed results in error
-        // set to 1 instead
-        targetSpeed = 1;
-      }
-    }
-
-    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_FAN_MANUAL,
-                                              .packetType = LevoitPacketType::SEND_MESSAGE,
-                                              .payload = {0x00, 0x00, 0x01, targetSpeed}});
-  }
-}*/
 }  // namespace levoit
 }  // namespace esphome
 }
