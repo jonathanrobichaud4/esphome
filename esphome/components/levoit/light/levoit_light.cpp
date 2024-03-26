@@ -19,7 +19,7 @@ void LevoitLight::setup() {
         is_transitioning = true;
         return;
       }
-      else if(this->state_->current_values == this->state_->remote_values){
+      else{
         is_transitioning = false;
       auto call = this->state_->make_call();
       // if (brightness == 0) {
