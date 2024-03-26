@@ -23,6 +23,9 @@ void LevoitSwitch::setup() {
           // also could be 8, which is 0 when off and 64 when on
           currentDisplayPowerState = buf[9] != 0x00;
           break;
+        case LevoitDeviceModel::CLASSIC_300S:
+          currentDisplayPowerState = buf[8] != 0x00;
+          break;
         default:
           currentDisplayPowerState = buf[7] != 0x00;
       }
