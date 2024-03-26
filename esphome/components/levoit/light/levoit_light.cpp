@@ -61,7 +61,7 @@ void LevoitLight::write_state(light::LightState *state) {
   ESP_LOGI(TAG, "Current values: %f", state->current_values.get_brightness());
   ESP_LOGI(TAG, "remote values: %f", state->remote_values.get_brightness());
   
-  if (this->state_->current_values == this->state_->remote_values) {
+  if (this->state_->current_values != this->state_->remote_values) {
       //float target_brightness = brightness;
       //is_transitioning = true;
 
