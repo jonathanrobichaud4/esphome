@@ -31,7 +31,7 @@ void LevoitNumber::control(float value) {
         uint8_t light = value;
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, 0x00, 0x01, light}});
+                                                  .payload = {0x00, 0x01, light}});
     }
     }
 }
