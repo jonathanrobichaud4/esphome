@@ -7,7 +7,7 @@ namespace esphome {
 namespace levoit {
 //TODO: Still need to figure out proper state handling so it doesn't get stuck in a loop
 static const char *const TAG = "levoit.light";
-
+bool is_transitioning = false;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     uint8_t brightness_uint = payloadData[15];
@@ -16,9 +16,11 @@ void LevoitLight::setup() {
       
       if (this->state_->current_values != this->state_->remote_values) {
         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+        is_transitioning = true;
         return;
       }
       else if(this->state_->current_values == this->state_->remote_values){
+        is_transitioning = false;
       auto call = this->state_->make_call();
       // if (brightness == 0) {
       //   call.set_state(false);
@@ -62,17 +64,18 @@ void LevoitLight::write_state(light::LightState *state) {
   ESP_LOGI(TAG, "Current values: %f", state->current_values.get_brightness());
   ESP_LOGI(TAG, "remote values: %f", state->remote_values.get_brightness());
   
-  if (this->state_->current_values != this->state_->remote_values) {
+  //if (this->state_->current_values != this->state_->remote_values) {
       //float target_brightness = brightness;
       //is_transitioning = true;
-
+  if(is_transitioning == true){
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
                                                 .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
+
    }      //break;
    
   
-  } 
+ // } 
   
 }  // namespace levoit
 }  // namespace esphome
