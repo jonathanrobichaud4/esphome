@@ -7,7 +7,7 @@
 namespace esphome {
 namespace levoit {
 
-enum LevoitNumberPurpose: uint8_t { HUMIDITY_LEVEL};
+enum LevoitNumberPurpose: uint8_t { HUMIDITY_LEVEL, LIGHT};
 
 class LevoitNumber : public number::Number, public Component {
  public:
