@@ -49,7 +49,7 @@ void LevoitSwitch::write_state(bool state) {
   if (this->purpose_ == DISPLAY_ON) {
     this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_SCREEN_BRIGHTNESS,
                                               .packetType = LevoitPacketType::SEND_MESSAGE,
-                                              .payload = {0x00, state == true ? (uint8_t) 0x32 : (uint8_t) 0x00}});
+                                              .payload = {0x00, state == true ? (uint8_t) 0x64 : (uint8_t) 0x00}});
   }
 }
 
