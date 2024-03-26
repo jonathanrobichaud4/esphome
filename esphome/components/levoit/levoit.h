@@ -17,14 +17,14 @@ enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12,
 
 enum class LevoitPayloadType : uint32_t {
   //confirmed working:
-  SET_DISPLAY_LOCK = 0x0100D1,
+  
   SET_WIFI_STATUS_LED = 0x0129A1, //works
   SET_POWER_STATE = 0x0100A0, //works
   STATUS_RESPONSE = 0x018540,
-
+  SET_LIGHT_BRIGHTNESS = 0x0103A0,
   //partially working:
   SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
-  SET_LIGHT_BRIGHTNESS = 0x0103A0,
+  
   
   //Not sure:
   TIMER_STATUS = 0x0165A2,
@@ -34,6 +34,7 @@ enum class LevoitPayloadType : uint32_t {
  //not working/not applicable:
   //STATUS_REQUEST = 0x013140, //not possible on classic 300
   //STATUS_RESPONSE = 0x013040,
+  SET_DISPLAY_LOCK = 0x0100D1,
   SET_FAN_AUTO_MODE = 0x01E6A5,
   SET_FAN_MANUAL = 0x0160A2,
   SET_FAN_MODE = 0x01E0A5,
