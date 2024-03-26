@@ -14,13 +14,13 @@ void LevoitNumber::setup() {
   });
 }
 
-/*void LevoitNumber::control(const std::string &value) {
+void LevoitNumber::control(float value) {
     if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
-        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
+        /*this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, std::stoi(value)}});
+                                                  .payload = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, std::stoi(value)}});*/
     }
-}*/
+}
 
 void LevoitNumber::dump_config() {
     ESP_LOGI("", "Levoit Number", this);
