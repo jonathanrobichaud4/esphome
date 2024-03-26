@@ -7,7 +7,7 @@ namespace levoit {
 //TODO: Still need to figure out proper state handling so it doesn't get stuck in a loop
 static const char *const TAG = "levoit.light";
 
-bool is_transitioning = false;
+//bool is_transitioning = false;
 float requested_brightness = 0.0f;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
@@ -17,10 +17,10 @@ void LevoitLight::setup() {
       auto call = this->state_->make_call();
        ESP_LOGI(TAG, "Current values: %f", this->state_->current_values.is_on());
        ESP_LOGI(TAG, "remote values: %f", this->state_->remote_values.is_on());
-      if (is_transitioning) {
-            ESP_LOGD(TAG, "Light is transitioning, ignoring state update");
-            return;
-        }
+      // if (is_transitioning) {
+      //       ESP_LOGD(TAG, "Light is transitioning, ignoring state update");
+      //       return;
+      //   }
 
       if (brightness == 0) {
         call.set_state(false);
@@ -52,11 +52,11 @@ void LevoitLight::write_state(light::LightState *state) {
 
  state->current_values_as_brightness(&brightness);
   ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100.0f);
-
+  
   if (brightness > 0.0f) {
-     if (this->state_->current_values.is_on() == true) {
+     if (state_) {
       //float target_brightness = brightness;
-      is_transitioning = true;
+      //is_transitioning = true;
 
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,

@@ -17,8 +17,7 @@ void LevoitNumber::setup() {
 void LevoitNumber::control(float value) {
     if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
       if(this->has_state()){
-        //call->
-        uint8_t humidity_level = value;//this->has_v//*call.get_value();
+        uint8_t humidity_level = value;
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
                                                   .payload = {0x00, 0x00, 0x01, humidity_level}});
