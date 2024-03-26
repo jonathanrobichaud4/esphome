@@ -22,5 +22,5 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
     if humidity_level := config.get(CONF_HUMIDITY_LEVEL):
-        var = await number.new_number(humidity_level, parent, LevoitNumberPurpose.HUMIDITY_LEVEL)
+        var = await number.new_number(humidity_level, parent, LevoitNumberPurpose.HUMIDITY_LEVEL, 0.0, 10.0 , 1)
         await cg.register_component(var, humidity_level)
