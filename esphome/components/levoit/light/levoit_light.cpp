@@ -67,7 +67,7 @@ void LevoitLight::write_state(light::LightState *state) {
   //if (this->state_->current_values != this->state_->remote_values) {
       //float target_brightness = brightness;
       //is_transitioning = true;
-  if(is_transitioning == true){
+  if(is_transitioning == false){
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
                                                 .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
