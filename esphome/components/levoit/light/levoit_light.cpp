@@ -73,6 +73,7 @@ void LevoitLight::write_state(light::LightState *state) {
                                                 .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
 
    }      //break;
+}
    
   
  // } 
