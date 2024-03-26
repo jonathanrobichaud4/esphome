@@ -18,6 +18,7 @@ void LevoitLight::setup() {
         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
         return;
       }
+      else{
       auto call = this->state_->make_call();
       if (brightness == 0) {
         call.set_state(false);
@@ -26,6 +27,7 @@ void LevoitLight::setup() {
         call.set_state(true);
         call.set_brightness(brightness);
         call.perform();
+      }
       }
       //call.set_publish(true);
       //call.set_brightness(brightness);
