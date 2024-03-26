@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import number
-from esphome.const import CONF_OUTPUT_ID
+from esphome.const import CONF_ID
 
 from .. import levoit_ns, CONF_LEVOIT_ID, Levoit
 # TODO: ADD ICONS
@@ -22,5 +22,6 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_LEVOIT_ID])
     if humidity_level := config.get(CONF_HUMIDITY_LEVEL):
-        var = await number.new_number(humidity_level, parent, LevoitNumberPurpose.HUMIDITY_LEVEL, min_value=0, max_value=10, step=1)
+        var = cg.new_Pvariable(humidity_level[CONF_ID], parent, LevoitNumberPurpose.HUMIDITY_LEVEL)
+        await number.register_number(var, humidity_level, min_value=0, max_value=10, step=1)
         await cg.register_component(var, humidity_level)
