@@ -7,7 +7,7 @@
 namespace esphome {
 namespace levoit {
 
-enum LevoitSensorPurpose : uint8_t { PM25, AIR_QUALITY, HUMIDITY};
+enum LevoitSensorPurpose : uint8_t { PM25, AIR_QUALITY, HUMIDITY, TEMPERATURE};
 
 class LevoitSensor : public Component, public sensor::Sensor {
  public:
