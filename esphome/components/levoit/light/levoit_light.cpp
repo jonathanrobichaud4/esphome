@@ -4,7 +4,7 @@
 
 namespace esphome {
 namespace levoit {
-
+//TODO: Still need to figure out proper state handling so it doesn't get stuck in a loop
 static const char *const TAG = "levoit.light";
 
 bool is_transitioning = false;
