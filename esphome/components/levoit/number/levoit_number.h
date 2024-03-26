@@ -7,7 +7,7 @@
 namespace esphome {
 namespace levoit {
 
-enum LevoitNumberPurpose : uint8_t { HUMIDITY_LEVEL};
+enum LevoitNumberPurpose: uint8_t { HUMIDITY_LEVEL};
 
 class LevoitNumber : public number::Number, public Component {
  public:
@@ -16,9 +16,10 @@ class LevoitNumber : public number::Number, public Component {
   void dump_config() override;
 
   protected:
-    //void control(const std::string &value) override;
+    void control(float value) override;
     Levoit *parent_;
     LevoitNumberPurpose purpose_;
+
 };
 
 } //namespace Levoit
