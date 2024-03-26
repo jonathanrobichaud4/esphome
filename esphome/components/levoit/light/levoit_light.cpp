@@ -75,7 +75,7 @@ void LevoitLight::write_state(light::LightState *state) {
       }*/
       //float test = this->state_->current_values.get_brightness();
       //bool test2 = test->has_value();
-  if(state->remote_values.get_brightness()){
+  if(state->remote_values.get_brightness() != state->current_values.get_brightness()){
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
                                                 .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
