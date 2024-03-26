@@ -68,11 +68,11 @@ void LevoitLight::write_state(light::LightState *state) {
       //float target_brightness = brightness;
       //is_transitioning = true;
 
-   if (this->state_->current_values != this->state_->remote_values) {
+   /*if (this->state_->current_values != this->state_->remote_values) {
         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
         is_transitioning = true;
         return;
-      }
+      }*/
   if(is_transitioning == true){
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
