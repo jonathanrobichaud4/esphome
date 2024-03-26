@@ -16,9 +16,12 @@ void LevoitNumber::setup() {
 
 void LevoitNumber::control(float value) {
     if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
-        /*this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
+      if(this->has_state()){
+        uint8_t humidity_level = this->state;//this->has_v//*call.get_value();
+        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, std::stoi(value)}});*/
+                                                  .payload = {0x00, 0x00, 0x01, humidity_level}});
+    }
     }
 }
 

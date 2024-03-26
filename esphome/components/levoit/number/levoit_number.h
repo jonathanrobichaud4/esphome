@@ -19,6 +19,7 @@ class LevoitNumber : public number::Number, public Component {
     void control(float value) override;
     Levoit *parent_;
     LevoitNumberPurpose purpose_;
+    number::NumberCall *call_{nullptr};
 
 };
 

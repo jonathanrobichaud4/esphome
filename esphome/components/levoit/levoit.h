@@ -22,6 +22,7 @@ enum class LevoitPayloadType : uint32_t {
   SET_POWER_STATE = 0x0100A0, //works
   STATUS_RESPONSE = 0x018540,
   SET_LIGHT_BRIGHTNESS = 0x0103A0,
+  SET_HUMIDITY_LEVEL = 0x0160A2,
   //partially working:
   SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
   
