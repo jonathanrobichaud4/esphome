@@ -53,7 +53,7 @@ void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
   float brightness = 0.0f;
-  state->current_values_as_brightness(&brightness);
+  brightness = state->remote_values.get_brightness();;
 
   ESP_LOGI(TAG, " Sent Brightness: %f", brightness*100.0f);
 
@@ -73,6 +73,8 @@ void LevoitLight::write_state(light::LightState *state) {
         is_transitioning = true;
         return;
       }*/
+      //float test = this->state_->current_values.get_brightness();
+      //bool test2 = test->has_value();
   if(is_transitioning == true){
       this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
                                                 .packetType = LevoitPacketType::SEND_MESSAGE,
