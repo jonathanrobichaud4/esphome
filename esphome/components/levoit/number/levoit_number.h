@@ -15,7 +15,7 @@ class LevoitNumber : public number::Number, public Component{//output::FloatOutp
   LevoitNumber(Levoit *parent, LevoitNumberPurpose purpose) : parent_(parent), purpose_(purpose) {}
   void setup() override;
   void dump_config() override;
-  bool auto_off = false;
+  //bool auto_off = false;
 
   protected:
     void control(float value) override;
