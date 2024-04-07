@@ -41,6 +41,10 @@ void LevoitNumber::control(float value) {
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::HUMIDIFIER_TARGET_CONFIRM,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00}});
+
+        ESP_LOGI(TAG, "Humidity target set to: %f", value);
+        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
+        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         }
         if(this->parent_->humidity_mode == 2) {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_SLEEP,
@@ -49,6 +53,9 @@ void LevoitNumber::control(float value) {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::HUMIDIFIER_TARGET_CONFIRM,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00}});
+          ESP_LOGI(TAG, "Humidity target set to: %f", value);
+          ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
+          ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         }
       }
         // if(this->parent_->humidity_mode == 1){
