@@ -10,7 +10,7 @@
 
 namespace esphome {
 namespace levoit {
-
+bool auto_off = false;
 enum class LevoitDeviceModel : uint8_t { NONE, CORE_300S, CORE_400S, CLASSIC_300S };
 
 enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12, STATUS_MESSAGE = 0x02, ERROR = 0x52 };
@@ -23,6 +23,11 @@ enum class LevoitPayloadType : uint32_t {
   STATUS_RESPONSE = 0x018540,
   SET_LIGHT_BRIGHTNESS = 0x0103A0,
   SET_HUMIDITY_LEVEL = 0x0160A2,
+  SET_HUMIDIFIER_MODE_MANUAL = 0x0129A1,
+  SET_HUMIDIFIER_MODE_SLEEP = 0x018240,
+  SET_HUMIDIFIER_MODE_AUTO = 0x018040,
+  HUMIDIFIER_TARGET_CONFIRM = 0x018440,
+  AUTO_OFF = 0x01E5A5,
   //partially working:
   SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
   
@@ -76,6 +81,7 @@ static const PayloadTypeOverrideMap MODEL_SPECIFIC_PAYLOAD_TYPES = {
 
 class Levoit : public Component, public uart::UARTDevice {
  public:
+  
   LevoitDeviceModel device_model_ = LevoitDeviceModel::CORE_300S;
   float get_setup_priority() const override { return setup_priority::LATE; }
   void setup() override;
