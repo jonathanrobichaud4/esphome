@@ -25,7 +25,6 @@ class LevoitSelect : public select::Select, public Component {
   void control(const std::string &value) override;
 
   Levoit *parent_;
-  uint8_t humidity_target;
   LevoitSelectPurpose purpose_;
 };
 
