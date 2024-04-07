@@ -1,6 +1,6 @@
 #include "esphome/core/log.h"
 #include "levoit_select.h"
-//#include <components/levoit/number/levoit_number.h>
+#include <components/levoit/number/levoit_number.h>
 
 namespace esphome {
 namespace levoit {
