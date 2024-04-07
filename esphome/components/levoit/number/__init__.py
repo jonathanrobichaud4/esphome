@@ -16,6 +16,7 @@ CONFIG_SCHEMA = (
     cv.Schema({
         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
         cv.Optional(CONF_HUMIDITY_LEVEL): number.number_schema(LevoitNumber),
+        cv.Optional(CONF_TARGET_HUMIDITY): number.number_schema(LevoitNumber),
         cv.Optional(CONF_LIGHT): number.number_schema(LevoitNumber)
       
     })
