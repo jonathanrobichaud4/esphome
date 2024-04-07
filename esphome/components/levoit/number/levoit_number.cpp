@@ -34,9 +34,9 @@ void LevoitNumber::control(float value) {
         this->parent_->humidity_target = value;
         uint8_t humidity_positive_offset = this->parent_->humidity_target - 5;
         uint8_t humidity_negative_offset = this->parent_->humidity_target + 5;
-        ESP_LOGI(TAG, "Humidity target set to: %f", value);
-        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
-        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
+        ESP_LOGD(TAG, "Humidity target set to: %f", value);
+        ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
+        ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         if(this->parent_->humidity_mode == 0){
         
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_AUTO,
@@ -46,9 +46,9 @@ void LevoitNumber::control(float value) {
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00}});
 
-        ESP_LOGI(TAG, "Humidity target set to: %f", value);
-        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
-        ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
+        ESP_LOGD(TAG, "Humidity target set to: %f", value);
+        ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
+        ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         }
         if(this->parent_->humidity_mode == 2) {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_SLEEP,
@@ -57,9 +57,9 @@ void LevoitNumber::control(float value) {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::HUMIDIFIER_TARGET_CONFIRM,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00}});
-          ESP_LOGI(TAG, "Humidity target set to: %f", value);
-          ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
-          ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
+          ESP_LOGD(TAG, "Humidity target set to: %f", value);
+          ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
+          ESP_LOGD(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         }
       }
         // if(this->parent_->humidity_mode == 1){
