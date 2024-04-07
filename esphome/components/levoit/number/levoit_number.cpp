@@ -38,11 +38,17 @@ void LevoitNumber::control(float value) {
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_AUTO,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00, this->parent_->humidity_target, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
+        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::HUMIDIFIER_TARGET_CONFIRM,
+                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                    .payload = {0x00}});
         }
         if(this->parent_->humidity_mode == 2) {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_SLEEP,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00, this->parent_->humidity_target, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
+          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::HUMIDIFIER_TARGET_CONFIRM,
+                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                    .payload = {0x00}});
         }
       }
         // if(this->parent_->humidity_mode == 1){
