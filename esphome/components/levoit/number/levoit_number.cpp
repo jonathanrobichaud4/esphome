@@ -34,9 +34,9 @@ void LevoitNumber::control(float value) {
       //if(this->has_state()){
         ESP_LOGI(TAG, "TEST target set to: %f", value);
         this->parent_->humidity_target = value;
-        uint8_t humidity_positive_offset = value - (uint8_t)5;
+        uint8_t humidity_positive_offset = value - 5;
         ESP_LOGI(TAG, "Humidity Positive offset target set to: %f", humidity_positive_offset);
-        uint8_t humidity_negative_offset = value + (uint8_t)5;
+        uint8_t humidity_negative_offset = value + 5;
         ESP_LOGI(TAG, "Humidity Negative offset target set to: %f", humidity_negative_offset);
         ESP_LOGI(TAG, "Humidity target set to: %f", value);
         ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
