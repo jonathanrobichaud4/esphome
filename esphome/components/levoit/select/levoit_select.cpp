@@ -52,21 +52,21 @@ void LevoitSelect::control(const std::string &value) {
     case LevoitDeviceModel::CLASSIC_300S:
       if (this->purpose_ == LevoitSelectPurpose::HUMIDIFIER_MODE) {
         //If these don't work at first I may need to add a confirm mode selection message
-        uint8_t humidity_positive_offset = TARGET_HUMIDITY - 5;
-        uint8_t humidity_negative_offset = TARGET_HUMIDITY + 5;
-
+        uint8_t humidity_positive_offset = humidity_target - 5;
+        uint8_t humidity_negative_offset = humidity_target + 5;
+        //manual mode also has to send mist level
         if (value == "Manual") {
-          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_MANUAL,
-                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                    .payload = {0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00}});
+          // this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_MANUAL,
+          //                                           .packetType = LevoitPacketType::SEND_MESSAGE,
+          //                                           .payload = {0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00}});
         } else if (value == "Sleep") {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_SLEEP,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                    .payload = {0x00, TARGET_HUMIDITY, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
+                                                    .payload = {0x00, humidity_target, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
         } else if (value == "Auto") {
           this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_AUTO,
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                    .payload = {0x00, TARGET_HUMIDITY, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
+                                                    .payload = {0x00, humidity_target, humidity_negative_offset, humidity_positive_offset, 0x09, 0x05, 0x01}});
         }
       }
     default:

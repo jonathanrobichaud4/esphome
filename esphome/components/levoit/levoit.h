@@ -87,7 +87,7 @@ class Levoit : public Component, public uart::UARTDevice {
   void setup() override;
   void loop() override;
   void dump_config() override;
-  uint8_t TARGET_HUMIDITY;
+  uint8_t humidity_target;
   void register_listener(LevoitPayloadType payloadType, const std::function<void(uint8_t *buf, size_t len)> &func);
   uint32_t get_model_specific_payload_type(LevoitPayloadType type);
   void send_command(const LevoitCommand &command);

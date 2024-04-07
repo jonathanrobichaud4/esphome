@@ -22,6 +22,7 @@ class LevoitNumber : public number::Number, public Component{//output::FloatOutp
     Levoit *parent_;
     LevoitNumberPurpose purpose_;
     number::NumberCall *call_{nullptr};
+    uint8_t humidity_target;
 
 };
 

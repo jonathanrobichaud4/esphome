@@ -1,5 +1,6 @@
 #include "esphome/core/log.h"
 #include "levoit_number.h"
+#include "components/levoit/levoit.h"
 
 namespace esphome {
 namespace levoit {
@@ -28,14 +29,14 @@ void LevoitNumber::control(float value) {
     }
 
     //Can I set the target withpout recalling the selected mode?
-    /*if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
+    if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
       if(this->has_state()){
-        uint8_t humidity_level = value;
-        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SE,
+        humidity_target = value;
+        /*this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SE,
                                                   .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, 0x00, 0x01, humidity_level}});
+                                                  .payload = {0x00, 0x00, 0x01, humidity_level}});*/
     }
-    }*/
+    }
 }
 
 void LevoitNumber::dump_config() {
