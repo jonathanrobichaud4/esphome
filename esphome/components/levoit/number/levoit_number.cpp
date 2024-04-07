@@ -5,7 +5,7 @@ namespace esphome {
 namespace levoit {
 
 static const char *const TAG = "levoit.number";
-bool auto_off = false;
+//bool auto_off = false;
 void LevoitNumber::setup() {
     this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
       if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
