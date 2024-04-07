@@ -1,6 +1,5 @@
 #include "esphome/core/log.h"
 #include "levoit_number.h"
-#include "components/levoit/levoit.h"
 
 namespace esphome {
 namespace levoit {
