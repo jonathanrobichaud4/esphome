@@ -11,7 +11,7 @@ static const char *const TAG = "levoit";
 static const int COMMAND_DELAY = 100;  // 50ms seems too low at least on the 400s; lots of NACK errors; 100ms is better
 static const int RECEIVE_TIMEOUT = 50000;
 static const int MAX_RETRIES = 5;
-bool auto_off = false;
+//bool auto_off = false;
 
 void Levoit::setup() {
   ESP_LOGI(TAG, "Setting up Levoit %s", device_model_ == LevoitDeviceModel::CORE_300S ? "Core 300S" : "Classic 300S");
