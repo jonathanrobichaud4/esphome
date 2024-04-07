@@ -10,7 +10,7 @@
 
 namespace esphome {
 namespace levoit {
-bool auto_off = false;
+//bool auto_off = false;
 enum class LevoitDeviceModel : uint8_t { NONE, CORE_300S, CORE_400S, CLASSIC_300S };
 
 enum class LevoitPacketType : uint8_t { SEND_MESSAGE = 0x22, ACK_MESSAGE = 0x12, STATUS_MESSAGE = 0x02, ERROR = 0x52 };
