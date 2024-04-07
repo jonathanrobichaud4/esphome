@@ -31,7 +31,7 @@ void LevoitNumber::control(float value) {
     //Can I set the target withpout recalling the selected mode?
     if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
       ESP_LOGI(TAG, "Humidity level set to: %f", value);
-      if(this->has_state()){
+      //if(this->has_state()){
         ESP_LOGI(TAG, "TEST target set to: %f", value);
         this->parent_->humidity_target = value;
         uint8_t humidity_positive_offset = this->parent_->humidity_target - 5;
@@ -63,7 +63,7 @@ void LevoitNumber::control(float value) {
           ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_target);
           ESP_LOGI(TAG, "Humidity target set to: %f", this->parent_->humidity_mode);
         }
-      }
+      //}
         // if(this->parent_->humidity_mode == 1){
         //   this->parent_->humidity_target = value;
         //   uint8_t humidity_positive_offset = this->parent_->humidity_target - 5;
