@@ -31,7 +31,7 @@ async def to_code(config):
         await cg.register_component(var, humidity_level)
     if target_humidity := config.get(CONF_TARGET_HUMIDITY):
         var = cg.new_Pvariable(target_humidity[CONF_ID], parent, LevoitNumberPurpose.TARGET_HUMIDITY)
-        await number.register_number(var, target_humidity, min_value=1, max_value=100, step=1)
+        await number.register_number(var, target_humidity, min_value=30, max_value=80, step=1)
         await cg.register_component(var, target_humidity)
     if night_light := config.get(CONF_LIGHT):
         var = cg.new_Pvariable(night_light[CONF_ID], parent, LevoitNumberPurpose.LIGHT)
