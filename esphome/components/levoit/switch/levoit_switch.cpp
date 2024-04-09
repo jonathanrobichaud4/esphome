@@ -7,10 +7,6 @@ namespace levoit {
 static const char *const TAG = "levoit.switch";
 
 void LevoitSwitch::setup() {
-
-  this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::AUTO_OFF,
-                                               .packetType = LevoitPacketType::SEND_MESSAGE,
-                                               .payload = {0x00, 0x01 }});
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *buf, size_t len) {
     if (this->purpose_ == DISPLAY_LOCK) {
       bool currentDisplayLockState = buf[14];
@@ -20,11 +16,11 @@ void LevoitSwitch::setup() {
       bool currentMasterPowerState = buf[4];
       this->publish_state(currentMasterPowerState);
     }
-    //  if (this->purpose_ == AUTO_OFF) {
-    //   this->parent_->auto_off = true;
-    //  // bool currentMasterPowerState = buf[4];
-    //   //this->publish_state(currentMasterPowerState);
-    // }
+    //   if (this->purpose_ == AUTO_OFF) {
+    //    this->parent_->auto_off = true;
+    //    //bool currentMasterPowerState = buf[4];
+    //    this->publish_state(currentMasterPowerState);
+    //  }
     if (this->purpose_ == DISPLAY_ON) {
       bool currentDisplayPowerState;
       switch (this->parent_->device_model_) {
