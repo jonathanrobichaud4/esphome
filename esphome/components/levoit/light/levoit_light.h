@@ -16,8 +16,8 @@ namespace esphome {
         void write_state(light::LightState *state) override;
       //LevoitLight(Levoit *parent) : parent_(parent), LightState(this), LightCall(this)  {}
       //void LevoitLight::setup_state(light::LightState *state) override;
-      private: 
-        float* brightness;
+      //private: 
+        //float* brightness;
       protected:
         Levoit *parent_;
         float *output_;

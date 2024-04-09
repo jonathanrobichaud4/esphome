@@ -10,11 +10,21 @@ static const char *const TAG = "levoit.light";
 bool is_transitioning = false;
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-    /*uint8_t brightness_uint = payloadData[15];
+    uint8_t brightness_uint = payloadData[15];
     float value = brightness_uint;
     float brightness = value / 100.0f;
       
-      //if (this->state_->current_values != this->state_->remote_values) {
+    if (this->state_->current_values != this->state_->remote_values) {
+         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+         return;
+       }
+ 
+       auto call = this->state_->make_call();
+       call.set_brightness(brightness);
+       call.perform();
+    
+    
+     /* //if (this->state_->current_values != this->state_->remote_values) {
        // ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
        // is_transitioning = true;
 
@@ -52,9 +62,14 @@ void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
 
 void LevoitLight::write_state(light::LightState *state) {
-  float brightness = 0.0f;
+  float write_brightness = 0.0f;
+  state->current_values_as_brightness(&write_brightness);
 
-  state->current_values_as_brightness(&brightness);
+  if (write_brightness > 0.0f){
+    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
+                                                .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                .payload = {0x00, 0x01, static_cast<uint8_t>(write_brightness*100)}});
+  }
   //brightness = state->remote_values.get_brightness();
 
   //auto values = this->state_->current_values();
@@ -75,9 +90,7 @@ void LevoitLight::write_state(light::LightState *state) {
       //float test = this->state_->current_values.get_brightness();
       //bool test2 = test->has_value();
   //if(state->remote_values.get_brightness() != state->current_values.get_brightness()){
-      this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
-                                                .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                .payload = {0x00, 0x01, static_cast<uint8_t>(brightness*100)}});
+      
 
    //}      //break;
 }
