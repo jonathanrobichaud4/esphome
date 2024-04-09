@@ -3,7 +3,6 @@
 
 namespace esphome {
 namespace levoit {
-//auto_off = true;
 static const char *const TAG = "levoit.switch";
 
 void LevoitSwitch::setup() {
