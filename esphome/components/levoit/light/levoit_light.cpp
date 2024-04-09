@@ -15,7 +15,7 @@ void LevoitLight::setup() {
     float brightness = value / 100.0f;
       
     if (this->state_->current_values != this->state_->remote_values) {
-         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+         //ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
         is_transitioning = true;
          return;
        }
@@ -82,9 +82,9 @@ void LevoitLight::write_state(light::LightState *state) {
   }
 
   if (this->state_->current_values == this->state_->remote_values) {
-         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
-          is_transitioning = false;
-         return;
+        //ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
+        is_transitioning = false;
+        return;
        }
 
 
