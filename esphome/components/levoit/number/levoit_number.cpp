@@ -11,26 +11,26 @@ void LevoitNumber::setup() {
       if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
         this->publish_state(payloadData[14]);
       }
-      /*if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
-        this->publish_state(payloadData[6]);
-      }*/
+      if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
+        this->publish_state(payloadData[10]);
+      }
   });
 }
 
 void LevoitNumber::control(float value) {
     if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
       if(this->has_state()){
-        uint8_t humidity_level = value;
-        ESP_LOGI(TAG, "Humidity level set to: %f", value);
-        this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
-                                                  .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                  .payload = {0x00, 0x00, 0x01, humidity_level}});
+        this->parent_->humidity_level = value;
+        if(this->parent_->humidity_mode == 1){
+          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDITY_LEVEL,
+                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                    .payload = {0x00, 0x00, 0x01, this->parent_->humidity_level}});
+        }
     }
     }
 
-    //Can I set the target withpout recalling the selected mode?
     if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
-      //if(this->has_state()){
+      if(this->has_state()){
         this->parent_->humidity_target = value;
         uint8_t humidity_positive_offset = value - 5;
         uint8_t humidity_negative_offset = value + 5;
@@ -51,18 +51,7 @@ void LevoitNumber::control(float value) {
                                                     .packetType = LevoitPacketType::SEND_MESSAGE,
                                                     .payload = {0x00}});
         }
-      //}
-        // if(this->parent_->humidity_mode == 1){
-        //   this->parent_->humidity_target = value;
-        //   uint8_t humidity_positive_offset = this->parent_->humidity_target - 5;
-        //   uint8_t humidity_negative_offset = this->parent_->humidity_target + 5;
-        //   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_MANUAL,
-        //                                           .packetType = LevoitPacketType::SEND_MESSAGE,
-        //                                           .payload = {0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00}});
-        //   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_TARGET_HUMIDITY,
-        //                                           .packetType = LevoitPacketType::SEND_MESSAGE,
-        //                                           .payload = {0x00, 0x00, 0x01, this->parent_->humidity_target, humidity_positive_offset, humidity_negative_offset}});
-        // }
+      }
     }
 }
 
