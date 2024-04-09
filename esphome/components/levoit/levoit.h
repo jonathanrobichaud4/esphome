@@ -28,6 +28,7 @@ enum class LevoitPayloadType : uint32_t {
   SET_HUMIDIFIER_MODE_AUTO = 0x018040,
   HUMIDIFIER_TARGET_CONFIRM = 0x018440,
   AUTO_OFF = 0x01E5A5,
+  TIMER_LIGHT = 0x016AA2,
   //partially working:
   SET_SCREEN_BRIGHTNESS = 0x0105A1, //can turn screen on and off
   
