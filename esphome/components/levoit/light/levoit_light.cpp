@@ -20,12 +20,12 @@ void LevoitLight::setup() {
        }
 
       auto call = this->state_->make_call();
-      if (brightness == 0) {
-         call.set_state(false);
+      if (brightness != 0) {
+         call.set_state(true);
+         call.set_brightness(brightness);
          call.perform();
        } else{
-        call.set_state(true);
-        call.set_brightness(brightness);
+        call.set_state(false);
         call.perform();
        }
        this->state_->publish_state();
