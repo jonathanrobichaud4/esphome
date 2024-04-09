@@ -32,8 +32,8 @@ void LevoitNumber::control(float value) {
     if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
       if(this->has_state()){
         this->parent_->humidity_target = value;
-        uint8_t humidity_positive_offset = value - 5;
-        uint8_t humidity_negative_offset = value + 5;
+        uint8_t humidity_positive_offset = value + 5;
+        uint8_t humidity_negative_offset = value - 5;
         if(this->parent_->humidity_mode == 0){
         
         this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_HUMIDIFIER_MODE_AUTO,
