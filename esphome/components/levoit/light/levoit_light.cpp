@@ -18,10 +18,17 @@ void LevoitLight::setup() {
          ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
          return;
        }
- 
-       auto call = this->state_->make_call();
-       call.set_brightness(brightness);
-       call.perform();
+
+      auto call = this->state_->make_call();
+      if (brightness == 0) {
+         call.set_state(false);
+         call.perform();
+       } else{
+        call.set_state(true);
+        call.set_brightness(brightness);
+        call.perform();
+       }
+       this->state_->publish_state();
     
     
      /* //if (this->state_->current_values != this->state_->remote_values) {
@@ -44,7 +51,7 @@ void LevoitLight::setup() {
       //call.set_publish(true);
       //call.set_brightness(brightness);
       
-      //this->state_->publish_state();
+      this->state_->publish_state();
       //}
    */  });
    }
