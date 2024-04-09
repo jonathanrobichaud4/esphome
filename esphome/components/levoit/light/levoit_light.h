@@ -19,7 +19,6 @@ namespace esphome {
       private: 
         float* brightness;
       protected:
-        uint8_t brightness;
         Levoit *parent_;
         float *output_;
         light::LightState *state_{nullptr};
