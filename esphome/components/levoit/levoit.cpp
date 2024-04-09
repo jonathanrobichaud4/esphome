@@ -57,6 +57,7 @@ void Levoit::setup() {
   this->send_command(LevoitCommand{.payloadType = LevoitPayloadType::AUTO_OFF,
                                               .packetType = LevoitPacketType::SEND_MESSAGE,
                                               .payload = {0x00, 0x01}});
+  auto_off = true;
 }
 
 void Levoit::loop() {

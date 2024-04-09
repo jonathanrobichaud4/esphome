@@ -20,7 +20,7 @@ CONFIG_SCHEMA = (
         cv.Optional(CONF_DISPLAY_LOCK): switch.switch_schema(LevoitSwitch, icon=ICON_SECURITY).extend(cv.COMPONENT_SCHEMA),
         cv.Optional(CONF_DISPLAY_ON): switch.switch_schema(LevoitSwitch, icon=ICON_BRIGHTNESS_5).extend(cv.COMPONENT_SCHEMA),
         cv.Optional(CONF_POWER): switch.switch_schema(LevoitSwitch, icon=ICON_POWER).extend(cv.COMPONENT_SCHEMA),
-        cv.Optional(CONF_AUTO_OFF): switch.switch_schema(LevoitSwitch).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_AUTO_OFF): switch.switch_schema(LevoitSwitch, default_restore_mode="ALWAYS_ON").extend(cv.COMPONENT_SCHEMA),
     })
 )
 
