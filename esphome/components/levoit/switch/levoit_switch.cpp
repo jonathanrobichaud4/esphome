@@ -16,6 +16,11 @@ void LevoitSwitch::setup() {
       bool currentMasterPowerState = buf[4];
       this->publish_state(currentMasterPowerState);
     }
+     if (this->purpose_ == AUTO_OFF) {
+      this->parent_->auto_off = true;
+     // bool currentMasterPowerState = buf[4];
+      //this->publish_state(currentMasterPowerState);
+    }
     if (this->purpose_ == DISPLAY_ON) {
       bool currentDisplayPowerState;
       switch (this->parent_->device_model_) {
@@ -50,6 +55,12 @@ void LevoitSwitch::write_state(bool state) {
     this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_SCREEN_BRIGHTNESS,
                                               .packetType = LevoitPacketType::SEND_MESSAGE,
                                               .payload = {0x00, state == true ? (uint8_t) 0x64 : (uint8_t) 0x00}});
+  }
+
+  if (this->purpose_ == AUTO_OFF) {
+    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::AUTO_OFF,
+                                              .packetType = LevoitPacketType::SEND_MESSAGE,
+                                              .payload = {0x00, state }});
   }
 }
 

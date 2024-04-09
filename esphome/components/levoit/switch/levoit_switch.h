@@ -7,7 +7,7 @@
 namespace esphome {
 namespace levoit {
 
-enum LevoitSwitchPurpose : uint8_t { DISPLAY_LOCK, MASTER_POWER, DISPLAY_ON };
+enum LevoitSwitchPurpose : uint8_t { DISPLAY_LOCK, MASTER_POWER, DISPLAY_ON, AUTO_OFF };
 
 class LevoitSwitch : public switch_::Switch, public Component {
  public:

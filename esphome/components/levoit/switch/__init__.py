@@ -9,6 +9,7 @@ CODEOWNERS = ["@acvigue"]
 
 CONF_DISPLAY_LOCK = "display_lock"
 CONF_DISPLAY_ON = "display_on"
+CONF_AUTO_OFF = "auto_off"
 
 LevoitSwitch = levoit_ns.class_("LevoitSwitch", switch.Switch, cg.Component)
 LevoitSwitchPurpose = levoit_ns.enum("LevoitSwitchPurpose")
@@ -19,6 +20,7 @@ CONFIG_SCHEMA = (
         cv.Optional(CONF_DISPLAY_LOCK): switch.switch_schema(LevoitSwitch, icon=ICON_SECURITY).extend(cv.COMPONENT_SCHEMA),
         cv.Optional(CONF_DISPLAY_ON): switch.switch_schema(LevoitSwitch, icon=ICON_BRIGHTNESS_5).extend(cv.COMPONENT_SCHEMA),
         cv.Optional(CONF_POWER): switch.switch_schema(LevoitSwitch, icon=ICON_POWER).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_AUTO_OFF): switch.switch_schema(LevoitSwitch).extend(cv.COMPONENT_SCHEMA),
     })
 )
 
@@ -36,3 +38,7 @@ async def to_code(config):
     if config_power := config.get(CONF_POWER):
         var = await switch.new_switch(config_power, parent, LevoitSwitchPurpose.MASTER_POWER)
         await cg.register_component(var, config_power)
+        
+    if config_auto_off := config.get(CONF_AUTO_OFF):
+        var = await switch.new_switch(config_auto_off, parent, LevoitSwitchPurpose.AUTO_OFF)
+        await cg.register_component(var, config_auto_off)
