@@ -14,6 +14,8 @@ void LevoitLight::setup() {
    }
 
 bool LevoitLight::control_dimmer_(const uint8_t brightness) {
+
+  ESP_LOGV(TAG, "DIMMER CONTROL CALLED:", brightness);
  
    //uint8_t set_brightness = remap<uint8_t, uint8_t>(brightness, 0, 100, this->min_value_, this->max_value_);
    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
