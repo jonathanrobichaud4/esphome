@@ -13,7 +13,7 @@ namespace esphome {
         void setup() override;
         void dump_config() override;
         light::LightTraits get_traits() override;
-        void setup_state(light::LightState *state) override { this->state_ = state; };
+        void setup_state(light::LightState *state) override;
         void write_state(light::LightState *state) override;
       //LevoitLight(Levoit *parent) : parent_(parent), LightState(this), LightCall(this)  {}
       //void LevoitLight::setup_state(light::LightState *state) override;
