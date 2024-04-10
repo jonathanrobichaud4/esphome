@@ -29,11 +29,10 @@ bool LevoitLight::control_dimmer_(const bool binary, const uint8_t brightness) {
     const uint8_t new_brightness = payloadData[15];
     const bool new_state = new_brightness == 0 ? false : true;
     if (new_state != this->last_binary_ || new_brightness != this->last_brightness_) {
-       //this->control_dimmer_(this->last_binary_, this->last_brightness_);
-       this->publish_state_(new_state, new_brightness);
-       
+       this->control_dimmer_(this->last_binary_, this->last_brightness_);
      }
-     
+
+    //this->publish_state_(new_state, new_brightness);
 
     });
    }
