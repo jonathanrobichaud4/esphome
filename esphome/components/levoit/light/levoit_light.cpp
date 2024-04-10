@@ -21,22 +21,13 @@ bool LevoitLight::control_dimmer_(const uint8_t brightness) {
 
 void LevoitLight::setup() {
   this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-    /*uint8_t brightness_uint = payloadData[15];
-    float value = brightness_uint;
-    float brightness = value / 100.0f;*/
     const uint8_t new_brightness = payloadData[15];
     if (new_brightness != this->last_brightness_) {
        this->control_dimmer_(this->last_brightness_);
      }
 
     this->publish_state_(new_brightness);
-    
 
-      //call.set_publish(true);
-      //call.set_brightness(brightness);
-      
-      //this->state_->publish_state();
-      //}
     });
    }
     
@@ -48,7 +39,7 @@ void LevoitLight::setup() {
        call.set_state(true);
        call.set_brightness((float) brightness / 100.0f);
      }
-     else{
+     else if (brightness == 0){
         call.set_state(false);
        }
      call.perform();
@@ -65,7 +56,7 @@ light::LightTraits LevoitLight::get_traits() {
 void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
-  float brightness = 0.0f;
+  float brightness;
   state->current_values_as_brightness(&brightness);
   const uint8_t calculated_brightness = (uint8_t) roundf(brightness * 100);
 
