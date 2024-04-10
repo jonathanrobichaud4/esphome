@@ -30,10 +30,11 @@ bool LevoitLight::control_dimmer_(const uint8_t brightness) {
     this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     const uint8_t new_brightness = payloadData[15];
     if (new_brightness != this->last_brightness_) {
-       this->control_dimmer_(this->last_brightness_);
+      this->publish_state_(new_brightness);
+       //this->control_dimmer_(this->last_brightness_);
      }
 
-    this->publish_state_(new_brightness);
+    
 
     });
    }
