@@ -1,6 +1,6 @@
 #include "esphome/core/log.h"
 #include "levoit_light.h"
-#include "esphome/core/helpers.h"
+
 #include "esphome/core/optional.h"
 
 namespace esphome {
@@ -8,54 +8,52 @@ namespace levoit {
 //TODO: Still need to figure out proper state handling so it doesn't get stuck in a loop
 static const char *const TAG = "levoit.light";
 bool is_transitioning = false;
-void LevoitLight::setup() {
-  this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
-    uint8_t brightness_uint = payloadData[15];
-    float value = brightness_uint;
-    float brightness = value / 100.0f;
-      
-    if (this->state_->current_values != this->state_->remote_values) {
-         ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
-         return;
-       }
 
-      auto call = this->state_->make_call();
-      if (brightness != 0) {
-         call.set_state(true);
-         call.set_brightness(brightness);
-         call.perform();
-       } else{
-        call.set_state(false);
-        call.perform();
-       }
-       this->state_->publish_state();
-    
-    
-     /* //if (this->state_->current_values != this->state_->remote_values) {
-       // ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
-       // is_transitioning = true;
 
-    //  }
-      //else{
-        //is_transitioning = false;
-      auto call = this->state_->make_call();
-      // if (brightness == 0) {
-      //   call.set_state(false);
-      //   call.perform();
-      // } else{
-        //call.set_state(true);
-        call.set_brightness(brightness);
-        call.perform();
-      //}
-      //}
-      //call.set_publish(true);
-      //call.set_brightness(brightness);
-      
-      this->state_->publish_state();
-      //}
-   */  });
+
+bool LevoitLight::control_dimmer_(const bool binary, const uint8_t brightness) {
+ 
+   //uint8_t set_brightness = remap<uint8_t, uint8_t>(brightness, 0, 100, this->min_value_, this->max_value_);
+   this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
+                                                .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                .payload = {0x00, 0x01, brightness}});
+
+  return true;
+ }
+
+
+
+   void LevoitLight::process_command_() {
+
+    this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
+    const uint8_t new_brightness = payloadData[15];
+    const bool new_state = new_brightness == 0 ? false : true;
+    if (new_state != this->last_binary_ || new_brightness != this->last_brightness_) {
+       //this->control_dimmer_(this->last_binary_, this->last_brightness_);
+       this->publish_state_(new_state, new_brightness);
+       
+     }
+     
+
+    });
    }
+   
     
+  void LevoitLight::publish_state_(const bool is_on, const uint8_t brightness) {
+   if (this->state_) {
+     ESP_LOGV(TAG, "Publishing new state: brightness=%d", brightness);
+     auto call = this->state_->make_call();
+     call.set_state(is_on);
+     if (brightness != 0) {
+       //call.set_state(true);
+       call.set_brightness((float) brightness / 100.0f);
+     }
+     /*else if (brightness == 0){
+        call.set_state(false);
+       }*/
+     call.perform();
+   }
+ }
 
 light::LightTraits LevoitLight::get_traits() {
           auto traits = light::LightTraits();
@@ -66,44 +64,39 @@ light::LightTraits LevoitLight::get_traits() {
 
 void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 
-void LevoitLight::setup_state(light::LightState *state) { state_ = state; }
-
 void LevoitLight::write_state(light::LightState *state) {
-  float write_brightness = 0.0f;
-  state->current_values_as_brightness(&write_brightness);
+  bool binary;
+  float brightness;
+  state->current_values_as_binary(&binary);
+  state->current_values_as_brightness(&brightness);
+  const uint8_t calculated_brightness = (uint8_t) roundf(brightness * 100);
 
-  if (this->state_->current_values != this->state_->remote_values){
-    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
-                                                .packetType = LevoitPacketType::SEND_MESSAGE,
-                                                .payload = {0x00, 0x01, static_cast<uint8_t>(write_brightness*100)}});
-  }
-  //brightness = state->remote_values.get_brightness();
+  if (calculated_brightness == 0) {
+     // if(binary) ESP_LOGD(TAG, "current_values_as_binary() returns true for zero brightness");
+     binary = false;
+   }
 
-  //auto values = this->state_->current_values();
-  //if (state_->current_values().get_brightness()) 
-  //auto call = this->state_->make_call();
-  
 
-  
-  //if (this->state_->current_values != this->state_->remote_values) {
-      //float target_brightness = brightness;
-      //is_transitioning = true;
+  if (binary != this->last_binary_ ||calculated_brightness != this->last_brightness_) {
+     if (this->control_dimmer_(this->last_binary_, calculated_brightness)) {
+       this->last_brightness_ = calculated_brightness;
+       this->last_binary_ = binary;
+     } else {
+       // Return to original value if failed to write to the dimmer
+       // TODO: Test me, can be tested if high-voltage part is not connected
+       ESP_LOGW(TAG, "Failed to update the dimmer, publishing the previous state");
+       this->publish_state_(this->last_binary_, this->last_brightness_);
+     }
+   }
+    
 
-   /*if (this->state_->current_values != this->state_->remote_values) {
-        ESP_LOGD(TAG, "Light is transitioning, datapoint change ignored");
-        is_transitioning = true;
-        return;
-      }*/
-      //float test = this->state_->current_values.get_brightness();
-      //bool test2 = test->has_value();
-  //if(state->remote_values.get_brightness() != state->current_values.get_brightness()){
-      
 
-   //}      //break;
+
 }
-   
-  
- // } 
+
+void LevoitLight::setup() {
+      this->process_command_();
+   }
   
 }  // namespace levoit
 }  // namespace esphome
