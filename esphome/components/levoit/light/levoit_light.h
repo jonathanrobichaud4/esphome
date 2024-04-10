@@ -25,6 +25,7 @@ namespace esphome {
         light::LightState *state_{nullptr};
         void publish_state_(uint8_t brightness);
         bool control_dimmer_(uint8_t brightness);
+        void process_command_();
         uint8_t last_brightness_{0};
         uint8_t min_value_{0};
         uint8_t max_value_{100};

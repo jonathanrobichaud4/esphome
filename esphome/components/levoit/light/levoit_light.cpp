@@ -9,6 +9,10 @@ namespace levoit {
 static const char *const TAG = "levoit.light";
 bool is_transitioning = false;
 
+void LevoitLight::setup() {
+      this->process_command_();
+   }
+
 bool LevoitLight::control_dimmer_(const uint8_t brightness) {
  
    //uint8_t set_brightness = remap<uint8_t, uint8_t>(brightness, 0, 100, this->min_value_, this->max_value_);
@@ -19,8 +23,11 @@ bool LevoitLight::control_dimmer_(const uint8_t brightness) {
   return true;
  }
 
-void LevoitLight::setup() {
-  this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
+
+
+   void LevoitLight::process_command_() {
+
+    this->parent_->register_listener(LevoitPayloadType::STATUS_RESPONSE, [this](uint8_t *payloadData, size_t payloadLen) {
     const uint8_t new_brightness = payloadData[15];
     if (new_brightness != this->last_brightness_) {
        this->control_dimmer_(this->last_brightness_);
@@ -30,6 +37,7 @@ void LevoitLight::setup() {
 
     });
    }
+   
     
   void LevoitLight::publish_state_(const uint8_t brightness) {
    if (this->state_) {
