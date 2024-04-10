@@ -23,10 +23,11 @@ namespace esphome {
         Levoit *parent_;
         float *output_;
         light::LightState *state_{nullptr};
-        void publish_state_(uint8_t brightness);
-        bool control_dimmer_(uint8_t brightness);
+        void publish_state_(const bool is_on, uint8_t brightness);
+        bool control_dimmer_(const bool binary, uint8_t brightness);
         void process_command_();
         uint8_t last_brightness_{0};
+        bool last_binary_{false};
         uint8_t min_value_{0};
         uint8_t max_value_{100};
         
