@@ -15,7 +15,7 @@ void LevoitLight::setup() {
 
 bool LevoitLight::control_dimmer_(const uint8_t brightness) {
 
-  ESP_LOGV(TAG, "DIMMER CONTROL CALLED:", brightness);
+  ESP_LOGI(TAG, "DIMMER CONTROL CALLED:", brightness);
  
    //uint8_t set_brightness = remap<uint8_t, uint8_t>(brightness, 0, 100, this->min_value_, this->max_value_);
    this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
@@ -67,6 +67,7 @@ light::LightTraits LevoitLight::get_traits() {
 void LevoitLight::dump_config() { ESP_LOGI("", "Levoit Light", this); }
 
 void LevoitLight::write_state(light::LightState *state) {
+  ESP_LOGI(TAG, "WRITE STATE CALLED:");
   float brightness;
   state->current_values_as_brightness(&brightness);
   const uint8_t calculated_brightness = (uint8_t) roundf(brightness * 100);
