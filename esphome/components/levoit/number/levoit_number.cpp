@@ -13,10 +13,22 @@ void LevoitNumber::setup() {
       if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
         this->publish_state(payloadData[10]);
       }
+      if (this->purpose_ == LevoitNumberPurpose::LIGHT) {
+        this->publish_state(payloadData[15]);
+      }
   });
 }
 
 void LevoitNumber::control(float value) {
+
+    if (this->purpose_ == LevoitNumberPurpose::LIGHT) {
+        if(this->has_state()){
+          uint8_t brightness = value;
+          this->parent_->send_command(LevoitCommand{.payloadType = LevoitPayloadType::SET_LIGHT_BRIGHTNESS,
+                                                    .packetType = LevoitPacketType::SEND_MESSAGE,
+                                                    .payload = {0x00, 0x01, brightness}});
+        }
+      }
     if (this->purpose_ == LevoitNumberPurpose::HUMIDITY_LEVEL) {
       if(this->has_state()){
         this->parent_->humidity_level = value;
