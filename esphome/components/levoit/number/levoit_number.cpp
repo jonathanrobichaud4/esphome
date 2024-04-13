@@ -67,7 +67,7 @@ void LevoitNumber::control(float value) {
 }
 
 void LevoitNumber::dump_config() {
-    //ESP_LOGI("", "Levoit Number", this);
+    ESP_LOGD("", "Levoit Number", this);
 }
 
 } //namespace levoit
