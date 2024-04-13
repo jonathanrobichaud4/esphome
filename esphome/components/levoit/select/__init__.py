@@ -44,5 +44,5 @@ async def to_code(config):
         
     if config_humidifier_mode := config.get(CONF_HUMIDIFIER_MODE):
         var = cg.new_Pvariable(config_humidifier_mode[CONF_ID], parent, LevoitSelectPurpose.HUMIDIFIER_MODE)
-        await select.register_select(var, config_humidifier_mode, options=["Manual", "Sleep", "Auto"])
+        await select.register_select(var, config_humidifier_mode, options=["manual", "sleep", "auto"])
         await cg.register_component(var, config_humidifier_mode)
