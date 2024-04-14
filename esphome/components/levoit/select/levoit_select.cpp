@@ -12,14 +12,14 @@ void LevoitSelect::setup() {
     switch (this->parent_->device_model_){
       case LevoitDeviceModel::CLASSIC_300S:
         if (this->purpose_ == LevoitSelectPurpose::HUMIDIFIER_MODE) {
-          uint8_t purifierFanMode = payloadBuf[13];
-          if (purifierFanMode == 0x00) {
+          uint8_t humidifierMode = payloadBuf[13];
+          if (humidifierMode == 0x00) {
             this->parent_->humidity_mode = 0;
             this->publish_state("auto");
-          } else if (purifierFanMode == 0x01) {
+          } else if (humidifierMode == 0x01) {
             this->parent_->humidity_mode = 1;
             this->publish_state("manual");
-          } else if (purifierFanMode == 0x02) {
+          } else if (humidifierMode == 0x02) {
             this->parent_->humidity_mode = 2;
             this->publish_state("sleep");
           }

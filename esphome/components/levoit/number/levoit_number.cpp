@@ -11,7 +11,10 @@ void LevoitNumber::setup() {
         this->publish_state(payloadData[14]);
       }
       if (this->purpose_ == LevoitNumberPurpose::TARGET_HUMIDITY) {
-        this->publish_state(payloadData[10]);
+        //if (payloadData[10] != 0x00) {
+          this->publish_state(payloadData[10]);
+       // }
+        
       }
       if (this->purpose_ == LevoitNumberPurpose::LIGHT) {
         this->publish_state(payloadData[15]);
